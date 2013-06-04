@@ -1,0 +1,34 @@
+<div>
+    <ul class="nav nav-list">
+        <li>
+            <a href="">
+                <i class="icon-star"></i> Tin nổi bật trong tuần
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="icon-star"></i> Tin nổi bật trong tháng
+            </a>
+        </li>
+        <!--Only show in the end of a year-->
+        <!--
+        <li>
+            <a href="">
+                <i class="icon-star"></i> Tin nổi bật trong năm
+            </a>
+        </li>
+        -->
+        <li ng-repeat="feed in feeds" ng-class="{active: $state.includes('feeds.detail') && $stateParams.feedId == feed.id}">
+            <a ui-if="feed.unread > 0" ng-click="onFeedClick(feed)" href="#/feed/{{feed.id}}&false">
+                <img ng-src="{{getIconUrl(feed)}}" alt=""/>
+                <strong>{{feed.name}}</strong>
+                <span class="badge badge-success" ui-if="feed.unread > 0">
+                    {{feed.unread}}
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="">More..</a>
+        </li>
+    </ul>
+</div>

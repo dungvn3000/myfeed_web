@@ -1,0 +1,22 @@
+<div infinite-scroll='loadMore()' infinite-scroll-disabled='busy'>
+
+    <div class="well-small" ui-if="news.length == 0">
+        @Messages("label.empty")
+    </div>
+
+    <div class="feed-item" ng-class="{unread: !entry.read}" ng-repeat="entry in news" ng-click="mark(entry, true)" on-scroll-middle="mark(entry)">
+        <div class="feed-image">
+            <img class="email-avatar" alt="YUI's avatar" src="http://api.twitter.com/1/users/profile_image?screen_name=yuilibrary&amp;size=bigger" height="65" width="65">
+        </div>
+        <div class="feed-content">
+            <a href="{{entry.url}}" target="_blank">
+                <strong>{{entry.title}}</strong>
+            </a>
+            <p class="feed-description">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut...
+            </p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>

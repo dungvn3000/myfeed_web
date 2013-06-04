@@ -1,0 +1,25 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           		controllers.Feeds.index
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               		controllers.Assets.at(path="/public", file)
+
+# Feed
+GET     /feed                               controllers.Feeds.all
+GET     /feed/getNews/:id                   controllers.Feeds.getNews(id: ObjectId, recommend: Boolean ?= false, page: Int ?= 1, limit: Int ?= 10)
+POST    /feed/mark                          controllers.Feeds.mark
+POST    /feed/add                           controllers.Feeds.add
+GET     /feed/partials/:view                controllers.Feeds.partials(view)
+
+# Authentication
+GET     /user/login                         controllers.Login.login
+GET     /user/signup                        controllers.Login.signup
+POST    /user/register                      controllers.Login.register
+GET     /user/logout                        controllers.Login.logout
+POST    /user/auth                          controllers.Login.auth
+GET     /facebook/login                     controllers.Facebook.login
+GET     /facebook/auth                      controllers.Facebook.auth(code : String)

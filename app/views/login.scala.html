@@ -1,0 +1,55 @@
+@(loginForm: Form[(String, String)])
+
+@import helper._
+@import partials._
+
+<!DOCTYPE html>
+<html>
+<head>
+    @header(Messages("application.title"))
+    <link rel="stylesheet" media="screen" href="/assets/css/login.css"">
+</head>
+<body>
+    <div>
+        <form class="form-signin" action="/user/auth" method="post" onsubmit="md5_password()">
+            <h2 class="form-signin-heading">Đăng nhập</h2>
+            <div class="control-group @if(loginForm.error("username").isDefined) {error}">
+              <div class="controls">
+                <input type="text" class="input-block-level" placeholder="Username" name="username" value="@loginForm("username").value">
+                @if(loginForm.error("username").isDefined) {
+                    <span class="help-inline">@Messages(loginForm.error("username").get.message)</span>
+                }
+              </div>
+            </div>
+            <div class="control-group @if(loginForm.error("password").isDefined) {error}">
+              <div class="controls">
+                <input type="password" class="input-block-level" placeholder="Password" name="password" id="password">
+                @if(loginForm.error("password").isDefined) {
+                    <span class="help-inline">@Messages(loginForm.error("password").get.message)</span>
+                }
+              </div>
+            </div>
+            <!--<label class="checkbox">-->
+                <!--<input type="checkbox" value="remember-me"> Remember me-->
+            <!--</label>-->
+            @loginForm.globalError.map { error =>
+              <div class="control-group error">
+                <span class="help-inline">
+                    @Messages(error.message)
+                </span>
+              </div>
+            }
+            <div class="control-group">
+                <button class="btn btn-primary" type="submit">Đăng nhập</button>
+                <a href="/user/signup" class="btn">Đăng ký</a>
+                hoặc
+                <a href="/facebook/login">
+                    <img src="/assets/img/facebook_icon.png" title="Đăng nhập với Facebook">
+                </a>
+            </div>
+        </form>
+    </div>
+    <script src="/assets/js/lib/md5.js" type="text/javascript"></script>
+    <script src="/assets/js/login/login.js" type="text/javascript"></script>
+</body>
+</html>
