@@ -12,7 +12,7 @@ import org.bson.types.ObjectId
 import play.api.data._
 import play.api.data.Forms._
 import Constraint._
-import org.linkerz.model.{UserFeed, Feed}
+import vn.myfeed.model.{UserFeed, Feed}
 import model.NormalUser
 
 /**

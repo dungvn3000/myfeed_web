@@ -2,7 +2,7 @@ package dto
 
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
-import org.linkerz.model.Feed
+import vn.myfeed.model.Feed
 
 /**
  * The Class FeedDto.

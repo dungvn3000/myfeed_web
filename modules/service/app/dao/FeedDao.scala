@@ -1,7 +1,7 @@
 package dao
 
 import com.novus.salat.dao.SalatDAO
-import org.linkerz.model.Feed
+import vn.myfeed.model.Feed
 import org.bson.types.ObjectId
 import se.radley.plugin.salat._
 import com.mongodb.casbah.commons.MongoDBObject

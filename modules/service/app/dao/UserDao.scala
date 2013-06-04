@@ -5,7 +5,7 @@ import play.api.Play.current
 import com.mongodb.casbah.commons.MongoDBObject
 import com.novus.salat.dao.SalatDAO
 import org.bson.types.ObjectId
-import org.linkerz.model.User
+import vn.myfeed.model.User
 
 object UserDao extends SalatDAO[User, ObjectId](collection = mongoCollection("user")) {
 

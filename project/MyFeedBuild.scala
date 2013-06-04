@@ -1,14 +1,18 @@
+import com.typesafe.sbtidea.SbtIdeaPlugin
 import sbt._
-import sbt.Keys._
 import play.Project._
+import sbt.Project._
+import Keys._
 
 object MyFeedBuild extends Build {
 
-  val appName = "myfeed"
-  val appVersion = "0.0.1"
+  val appOrganization = "vn.myfeed"
+  val appName = "myfeed_web"
+  val appVersion = "0.1.0-SNAPSHOT"
+  val appScalaVersion = "2.10.0"
 
   val appDependencies = Seq(
-    "org.linkerz" %% "linkerz_model" % "0.1-SNAPSHOT",
+    "vn.myfeed" %% "model" % "0.1.0-SNAPSHOT",
     "se.radley" %% "play-plugins-salat" % "1.2",
     "joda-time" % "joda-time" % "2.1",
     "jp.t2v" %% "stackable-controller" % "0.2",
@@ -29,17 +33,29 @@ object MyFeedBuild extends Build {
     Resolver.file("Local Repository", file(Path.userHome.absolutePath + "/.ivy2/local"))(Resolver.ivyStylePatterns)
   )
 
-  val plugin = play.Project(appName + "_plugin", appVersion, appDependencies, path = file("modules/plugin")).settings(
+  lazy val scalaProjectSetting = Defaults.defaultSettings ++ Seq(
+    version := appVersion,
+    organization := appOrganization,
+    scalaVersion := appScalaVersion,
+    resolvers ++= appResolvers
+  ) ++ SbtIdeaPlugin.ideaSettings
+
+  val plugin = play.Project("plugin", appVersion, appDependencies, path = file("modules/plugin")).settings(
     resolvers ++= appResolvers
   )
 
-  val service = play.Project(appName + "_service", appVersion, appDependencies, path = file("modules/service")).settings(
+  val service = play.Project("service", appVersion, appDependencies, path = file("modules/service")).settings(
     resolvers ++= appResolvers
   )
 
-  val admin = play.Project(appName + "_admin", appVersion, appDependencies, path = file("modules/admin")).settings(
+  val admin = play.Project("admin", appVersion, appDependencies, path = file("modules/admin")).settings(
     resolvers ++= appResolvers
   ).dependsOn(plugin, service)
+
+  //Add on project
+  val chrome = Project("chrome", file("modules/chrome"), settings = scalaProjectSetting)
+  //Add on project
+  val firefox = Project("firefox", file("modules/firefox"), settings = scalaProjectSetting)
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     routesImport ++= Seq(
@@ -47,7 +63,7 @@ object MyFeedBuild extends Build {
     ),
     templatesImport ++= Seq(
       "org.bson.types.ObjectId",
-      "org.linkerz.model._",
+      "vn.myfeed.model._",
       "dto._",
       "model._"
     ),

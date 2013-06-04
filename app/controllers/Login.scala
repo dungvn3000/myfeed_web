@@ -8,7 +8,7 @@ import jp.t2v.lab.play2.auth.LoginLogout
 import dao.UserDao
 import concurrent.ExecutionContext
 import ExecutionContext.Implicits.global
-import org.linkerz.model.User
+import vn.myfeed.model.User
 import model.NormalUser
 
 /**

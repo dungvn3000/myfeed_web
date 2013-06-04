@@ -3,7 +3,7 @@ package dao
 import se.radley.plugin.salat._
 import play.api.Play.current
 import com.novus.salat.dao.SalatDAO
-import org.linkerz.model.News
+import vn.myfeed.model.News
 import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 

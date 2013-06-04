@@ -1,7 +1,7 @@
 package dao
 
 import com.novus.salat.dao.SalatDAO
-import org.linkerz.model.UserNews
+import vn.myfeed.model.UserNews
 import org.bson.types.ObjectId
 import se.radley.plugin.salat._
 import play.api.Play.current

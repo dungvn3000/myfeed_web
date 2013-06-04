@@ -1,6 +1,6 @@
 package dto
 
-import org.linkerz.model.News
+import vn.myfeed.model.News
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 

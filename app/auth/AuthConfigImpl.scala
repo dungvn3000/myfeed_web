@@ -20,7 +20,7 @@ trait AuthConfigImpl extends AuthConfig with Rendering with AcceptExtractors {
 
   type Id = String
 
-  type User = org.linkerz.model.User
+  type User = vn.myfeed.model.User
 
   type Authority = Permission
 
