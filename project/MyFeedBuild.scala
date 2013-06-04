@@ -14,13 +14,11 @@ object MyFeedBuild extends Build {
   val appDependencies = Seq(
     "vn.myfeed" %% "model" % "0.1.0-SNAPSHOT",
     "se.radley" %% "play-plugins-salat" % "1.2",
-    "joda-time" % "joda-time" % "2.1",
     "jp.t2v" %% "stackable-controller" % "0.2",
     "jp.t2v" %% "play2.auth" % "0.9",
     "jp.t2v" %% "play2.auth.test" % "0.9" % "test",
     "com.restfb" % "restfb" % "1.6.11",
-    "com.github.seratch" %% "inputvalidator" % "[0.2,)",
-    "com.github.seratch" %% "inputvalidator-play" % "[0.2,)",
+    "joda-time" % "joda-time" % "2.1",
     "commons-validator" % "commons-validator" % "1.4.0" exclude("commons-beanutils", "commons-beanutils")
   )
 

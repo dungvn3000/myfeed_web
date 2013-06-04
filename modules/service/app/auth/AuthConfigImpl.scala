@@ -2,7 +2,6 @@ package auth
 
 import play.api.mvc._
 import play.api.mvc.Results._
-import controllers.routes
 import dao.UserDao
 import scala.reflect._
 import jp.t2v.lab.play2.auth.{CookieIdContainer, IdContainer, AuthConfig}
@@ -30,14 +29,14 @@ trait AuthConfigImpl extends AuthConfig with Rendering with AcceptExtractors {
 
   implicit val idTag: ClassTag[Id] = classTag[Id]
 
-  def loginSucceeded(request: RequestHeader) = Redirect(routes.Feeds.index())
+  def loginSucceeded(request: RequestHeader) = Redirect("/")
 
-  def logoutSucceeded(request: RequestHeader) = Redirect(routes.Feeds.index())
+  def logoutSucceeded(request: RequestHeader) = Redirect("/")
 
   def authenticationFailed(request: RequestHeader) = {
     render {
       case Accepts.Json() => Forbidden("Please login")
-      case _ => Redirect(routes.Login.login())
+      case _ => Redirect("/user/login")
     }(request)
   }
 
