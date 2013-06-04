@@ -2,6 +2,8 @@
 
 @import helper._
 @import partials._
+@import views.html.component._
+@implicitFieldConstructor = @{FieldConstructor(bootstrapform.text.f)}
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +13,7 @@
 </head>
 <body>
     <div>
-        <form class="form-signin" action="/user/auth" method="post" onsubmit="md5_password()">
+        <form class="form-signin" action="/user/auth" method="post">
             <h2 class="form-signin-heading">Đăng nhập</h2>
             <div class="control-group @if(loginForm.error("username").isDefined) {error}">
               <div class="controls">

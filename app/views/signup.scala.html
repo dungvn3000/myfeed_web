@@ -18,7 +18,7 @@
 </head>
 <body>
     <div class="container">
-        <form class="form-signin form-horizontal" action="/user/register" method="post" onsubmit="md5_password()" >
+        <form class="form-signin form-horizontal" action="/user/register" method="post">
             <h2 class="form-signin-heading">Đăng ký thành viên</h2>
             @inputText(signUpForm("username"), '_label -> "Tên đăng nhập *")
             @inputPassword(signUpForm("password"), '_label -> "Mật khẩu *")

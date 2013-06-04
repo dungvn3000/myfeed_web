@@ -73,7 +73,6 @@ object Feeds extends Controller with Auth with AuthConfigImpl {
 
   lazy val feedForm = Form(
     tuple(
-      "id" -> ignored[ObjectId](new ObjectId),
       "name" -> nonEmptyText,
       "url" -> nonEmptyText.verifying(urlConstraint)
     )
@@ -86,7 +85,7 @@ object Feeds extends Controller with Auth with AuthConfigImpl {
         BadRequest(Json.toJson(error))
       },
       formData => formData match {
-        case (id, name, url) => {
+        case (name, url) => {
           val feed = FeedDao.findByUrl(url).getOrElse {
             val newFeed = Feed(url = url, name = name)
             FeedDao.insert(newFeed)

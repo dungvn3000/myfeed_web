@@ -13,7 +13,7 @@ object Constraint {
 
   lazy val urlConstraint = Constraints.pattern(
     "^(http|https)\\://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\\-\\._\\?\\,\\'/\\\\\\+&amp;%\\$#\\=~])*[^\\.\\,\\)\\(\\s]$".r,
-    error = "Url is not correct"
+    error = "error.url"
   )
 
 }

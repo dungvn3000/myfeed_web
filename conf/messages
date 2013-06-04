@@ -4,6 +4,7 @@ application.title=MyFeed
 error.required=Yêu cầu nhập
 error.email=Email không hợp lệ
 error.minLength=Không đuợc ít hơn {0} ký tự
+error.url=Url không hợp lệ
 username.exits=Tên đăng nhập đã tồn tại
 password.notMatch=Mật khẩu và nhập lại mật khẩu không giống nhau
 login.failed=Sai mật khẩu hoặc tên đăng nhập
