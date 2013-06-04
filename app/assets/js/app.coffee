@@ -1,5 +1,5 @@
 app = angular.module('myFeed', ['myFeed.filters', 'myFeed.services', 'myFeed.directives', 'myFeed.controllers',
-                                'ui.utils', 'infinite-scroll', 'ui.bootstrap','ui.compat'])
+                                'ui.utils', 'infinite-scroll', 'ui.bootstrap','ui.compat', 'l10n', 'l10n-tools', 'my-l10n-en'])
 
 app.config ($routeProvider, $stateProvider, $urlRouterProvider) ->
   $stateProvider.state 'feeds', {
