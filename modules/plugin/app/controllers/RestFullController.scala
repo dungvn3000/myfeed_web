@@ -16,21 +16,21 @@ trait RestFullController[Id] extends Controller {
    * return a list of all records
    * @return
    */
-  def query(): Action[AnyContent] = TODO
+  def query: Action[_] = TODO
 
   /**
    * GET /entity/new
    * return a form for creating a new record
    * @return
    */
-  def add(): Action[AnyContent] = TODO
+  def add: Action[_] = TODO
 
   /**
    * POST /entity
    * submit fields for creating a new record
    * @return
    */
-  def create(): Action[AnyContent] = TODO
+  def create: Action[_] = TODO
 
   /**
    * GET /entity/1
@@ -38,7 +38,7 @@ trait RestFullController[Id] extends Controller {
    * @param id
    * @return
    */
-  def show(id: Id): Action[AnyContent] = TODO
+  def show(id: Id): Action[_] = TODO
 
   /**
    * GET /entity/1/edit
@@ -46,7 +46,7 @@ trait RestFullController[Id] extends Controller {
    * @param id
    * @return
    */
-  def edit(id: Id): Action[AnyContent] = TODO
+  def edit(id: Id): Action[_] = TODO
 
   /**
    * PUT /entity/1
@@ -54,7 +54,7 @@ trait RestFullController[Id] extends Controller {
    * @param id
    * @return
    */
-  def update(id: Id): Action[AnyContent] = TODO
+  def update(id: Id): Action[_] = TODO
 
   /**
    * DELETE /entity/1
@@ -62,6 +62,6 @@ trait RestFullController[Id] extends Controller {
    * @param id
    * @return
    */
-  def delete(id: Id): Action[AnyContent] = TODO
+  def delete(id: Id): Action[_] = TODO
 
 }
