@@ -6,7 +6,6 @@ GET     /                           		admin.controllers.Home.index
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               		admin.controllers.Assets.at(path="/public", file)
 
-GET     /feed                               admin.controllers.Feeds.index
 GET     /feed/all                           admin.controllers.Feeds.all
 GET     /feed/add                           admin.controllers.Feeds.add
 POST    /feed/create                        admin.controllers.Feeds.create
@@ -14,3 +13,4 @@ GET     /feed/show/:id                      admin.controllers.Feeds.show(id: Obj
 GET     /feed/:id/edit                      admin.controllers.Feeds.edit(id: ObjectId)
 PUT     /feed/:id                           admin.controllers.Feeds.update(id: ObjectId)
 DELETE  /feed/:id                           admin.controllers.Feeds.delete(id: ObjectId)
+GET     /feed/partials/:view                admin.controllers.Feeds.partials(view)

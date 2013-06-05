@@ -3,18 +3,17 @@
 
 @import partials._
 
-<html>
+<html ng-app="myFeed.admin">
 <head>
     @header(Messages("application.title"))
 </head>
-<body>
+<body ng-controller="HomeController">
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     @navBar
 </div>
 
-<div class="container">
-    <h3>Welcome to administrator page</h3>
+<div class="container" ng-view>
 </div>
 
 <hr>

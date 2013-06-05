@@ -12,12 +12,6 @@ import play.api.mvc.{AnyContent, Action, Controller}
 trait RestFullController[Id] extends Controller {
 
   /**
-   * Return index view
-   * @return
-   */
-  def index(): Action[AnyContent] = TODO
-
-  /**
    * GET /entity
    * return a list of all records
    * @return
