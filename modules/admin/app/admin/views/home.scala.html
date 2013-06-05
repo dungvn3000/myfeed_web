@@ -13,7 +13,11 @@
     @navBar
 </div>
 
-<div class="container" ng-view>
+<div class="container">
+    <legend>
+        <h3>{page.title}</h3>
+    </legend>
+    <div ui-view></div>
 </div>
 
 <hr>

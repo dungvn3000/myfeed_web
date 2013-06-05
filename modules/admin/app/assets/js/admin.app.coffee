@@ -3,26 +3,24 @@ app = angular.module('myFeed.admin', ['myFeed.admin.filters', 'myFeed.admin.serv
 
 app.config ($routeProvider, $stateProvider, $urlRouterProvider) ->
   $stateProvider.state 'feed', {
-    'abstract': true
     url: '/feed'
-    templateUrl: 'admin/feed/partials/index'
+    'abstract': true
+    templateUrl: '/admin/feed/partials/index'
   }
 
   $stateProvider.state 'feed.list', {
     url: ''
-    templateUrl: 'admin/feed/partials/list'
-    controller: 'FeedController'
+    templateUrl: '/admin/feed/partials/list'
   }
 
   $stateProvider.state 'feed.detail', {
     url: '/:feedId'
-    templateUrl: 'admin/feed/partials/detail'
-    controller: 'FeedController'
+    templateUrl: '/admin/feed/partials/detail'
   }
 
   $stateProvider.state 'maintenance', {
     url: '/maintenance'
-    templateUrl: 'admin/maintenance/partials/index'
+    templateUrl: '/admin/maintenance/partials/index'
   }
 
   $urlRouterProvider.otherwise("/feed")
