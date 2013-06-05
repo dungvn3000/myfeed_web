@@ -5,7 +5,7 @@ app.config ($routeProvider, $stateProvider, $urlRouterProvider) ->
   $stateProvider.state 'feed', {
     'abstract': true
     url: '/feed'
-    templateUrl: 'admin/feed/partials/feeds'
+    templateUrl: 'admin/feed/partials/index'
   }
 
   $stateProvider.state 'feed.list', {
@@ -18,6 +18,11 @@ app.config ($routeProvider, $stateProvider, $urlRouterProvider) ->
     url: '/:feedId'
     templateUrl: 'admin/feed/partials/detail'
     controller: 'FeedController'
+  }
+
+  $stateProvider.state 'maintenance', {
+    url: '/maintenance'
+    templateUrl: 'admin/maintenance/partials/index'
   }
 
   $urlRouterProvider.otherwise("/feed")

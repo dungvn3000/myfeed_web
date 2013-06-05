@@ -17,8 +17,8 @@ import auth.AuthConfigImpl
 object Feeds extends RestFullController[ObjectId] with Auth with AuthConfigImpl {
 
   lazy val routes = Map(
-    "feeds" -> Ok(admin.views.html.partials.feed()),
-    "list" -> Ok(admin.views.html.partials.feedList())
+    "index" -> Ok(admin.views.html.partials.feed.index()),
+    "list" -> Ok(admin.views.html.partials.feed.feedList())
   )
 
   def partials(view: String) = authorizedAction(Administrator)(implicit user => implicit request => {

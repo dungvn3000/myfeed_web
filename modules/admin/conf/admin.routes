@@ -14,3 +14,6 @@ GET     /feed/:id/edit                      admin.controllers.Feeds.edit(id: Obj
 PUT     /feed/:id                           admin.controllers.Feeds.update(id: ObjectId)
 DELETE  /feed/:id                           admin.controllers.Feeds.delete(id: ObjectId)
 GET     /feed/partials/:view                admin.controllers.Feeds.partials(view)
+
+GET     /maintenance/shutdown               admin.controllers.Maintenance.shutdown
+GET     /maintenance/partials/:view         admin.controllers.Maintenance.partials(view)
