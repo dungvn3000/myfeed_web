@@ -1,1 +1,1 @@
-alert "hehehed asdkj a"
+console.log "dung ne"

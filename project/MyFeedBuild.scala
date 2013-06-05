@@ -31,31 +31,7 @@ object MyFeedBuild extends Build {
     Resolver.file("Local Repository", file(Path.userHome.absolutePath + "/.ivy2/local"))(Resolver.ivyStylePatterns)
   )
 
-  lazy val scalaProjectSetting = Defaults.defaultSettings ++ Seq(
-    version := appVersion,
-    organization := appOrganization,
-    scalaVersion := appScalaVersion,
-    resolvers ++= appResolvers
-  ) ++ SbtIdeaPlugin.ideaSettings
-
-  val plugin = play.Project("plugin", appVersion, appDependencies, path = file("modules/plugin")).settings(
-    resolvers ++= appResolvers
-  )
-
-  val service = play.Project("service", appVersion, appDependencies, path = file("modules/service")).settings(
-    resolvers ++= appResolvers
-  )
-
-  val admin = play.Project("admin", appVersion, appDependencies, path = file("modules/admin")).settings(
-    resolvers ++= appResolvers
-  ).dependsOn(plugin, service)
-
-  //Add on project
-  val chrome = Project("chrome", file("modules/chrome"), settings = scalaProjectSetting)
-  //Add on project
-  val firefox = Project("firefox", file("modules/firefox"), settings = scalaProjectSetting)
-
-  val main = play.Project(appName, appVersion, appDependencies).settings(
+  lazy val playProjectSetting = Seq(
     routesImport ++= Seq(
       "se.radley.plugin.salat.Binders._"
     ),
@@ -66,6 +42,27 @@ object MyFeedBuild extends Build {
       "model._"
     ),
     resolvers ++= appResolvers
-  ).dependsOn(admin).aggregate(admin)
+  )
+
+  lazy val scalaProjectSetting = Defaults.defaultSettings ++ Seq(
+    version := appVersion,
+    organization := appOrganization,
+    scalaVersion := appScalaVersion,
+    resolvers ++= appResolvers
+  ) ++ SbtIdeaPlugin.ideaSettings
+
+  val plugin = play.Project("plugin", appVersion, appDependencies, path = file("modules/plugin")).settings(playProjectSetting: _*)
+
+  val service = play.Project("service", appVersion, appDependencies, path = file("modules/service")).settings(playProjectSetting: _*)
+
+  val admin = play.Project("admin", appVersion, appDependencies, path = file("modules/admin")).settings(playProjectSetting: _*)
+    .dependsOn(plugin, service)
+
+  //Add on project
+  val chrome = Project("chrome", file("modules/chrome"), settings = scalaProjectSetting)
+  //Add on project
+  val firefox = Project("firefox", file("modules/firefox"), settings = scalaProjectSetting)
+
+  val main = play.Project(appName, appVersion, appDependencies).settings(playProjectSetting: _*).dependsOn(admin).aggregate(admin)
 
 }

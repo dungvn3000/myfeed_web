@@ -14,8 +14,10 @@ import model.Administrator
  */
 object Home extends Controller with Auth with AuthConfigImpl {
 
+  def navBar(implicit user: User) = admin.views.html.partials.navbar(user)
+
   def index = authorizedAction(Administrator)(implicit user => implicit request => {
-    Ok(admin.views.html.home())
+    Ok(admin.views.html.home(navBar))
   })
 
 }
