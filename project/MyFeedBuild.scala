@@ -66,6 +66,6 @@ object MyFeedBuild extends Build {
       "model._"
     ),
     resolvers ++= appResolvers
-  ).dependsOn(admin)
+  ).dependsOn(admin).aggregate(admin)
 
 }
