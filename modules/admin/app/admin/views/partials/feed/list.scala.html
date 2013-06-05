@@ -1,11 +1,12 @@
 <div class="table-control row-fluid">
     <div class="span5">
         <form class="form-inline" action="">
-            <input type="search" class="span6" name="p.f" value="" placeholder="Search by name">
-            <select class="span3">
+            <input type="search" class="span6" ng-model="value"  ng-change="query(field, value, sort, order, 1, limit)" placeholder="Search by name">
+            <select class="span3" ng-model="field" ng-change="query(field, value, sort, order, 1, limit)">
                 <option value="name">name</option>
                 <option value="url">url</option>
             </select>
+            <button class="btn" ng-click="value = ''; query(field, value, sort, order, 1, limit)">Clear</button>
         </form>
     </div>
     <div style="float:right">
@@ -23,10 +24,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>1</td>
-        <td><a href="#/feed/1">VnExpress</a></td>
-        <td>VnExpress.net</td>
+    <tr ng-repeat="entry in data">
+        <td>{{data.indexOf(entry) + 1}}</td>
+        <td><a href="#/feed/{{entry._id}}">{{entry.name}}</a></td>
+        <td>{{entry.url}}</td>
         <td>
             <a href="">Delete</a>
         </td>
@@ -38,9 +39,9 @@
     <div class="pagination" style="float:right">
         <ul>
             <li><a href="">&laquo;</a></li>
-            <li class="active"><a href="">1</a></li>
-            <li class=""><a href="">2</a></li>
-            <li class=""><a href="">3</a></li>
+            <li ng-class="{active: page == i}" ng-repeat="i in [] | range:totalPage">
+                <a href="" ng-click="query(field, value, sort, order, i, limit)">{{i}}</a>
+            </li>
             <li class="disabled"><a href="#">&raquo;</a></li>
         </ul>
     </div>

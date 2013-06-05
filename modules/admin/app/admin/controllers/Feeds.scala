@@ -10,6 +10,7 @@ import play.api.libs.json._
 import plugin.ObjectIdFormat._
 import plugin.String2Int
 import dao.FeedDao
+import dto.DataTable
 
 /**
  * The Class Feeds.
@@ -20,7 +21,8 @@ import dao.FeedDao
  */
 object Feeds extends RestFullController[ObjectId] with Auth with AuthConfigImpl {
 
-  implicit val personReads: Writes[Feed] = Json.writes[Feed]
+  implicit val feedWriter: Writes[Feed] = Json.writes[Feed]
+  implicit val dataWriter: Writes[DataTable] = Json.writes[DataTable]
 
   lazy val routes = Map(
     "index" -> Ok(admin.views.html.partials.feed.index()),
@@ -50,8 +52,20 @@ object Feeds extends RestFullController[ObjectId] with Auth with AuthConfigImpl 
     val limit = request.getQueryString("l").collect {
       case String2Int(l) => l
     }.getOrElse(10)
-    Ok(Json.toJson(FeedDao.query(field, value, sort, order, page, limit)))
+    val totalPage = FeedDao.totalPage(field, value, limit)
+    val data = DataTable(
+      field = field,
+      value = value,
+      sort = sort,
+      order = order,
+      page = page,
+      limit = limit,
+      totalPage = totalPage,
+      data = Json.toJson(FeedDao.query(field, value, sort, order, page, limit))
+    )
+    Ok(Json.toJson(data))
   })
+
 
   /**
    * GET /entity/1
