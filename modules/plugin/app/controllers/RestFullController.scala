@@ -16,7 +16,7 @@ trait RestFullController[Id] extends Controller {
    * return a list of all records
    * @return
    */
-  def all(): Action[AnyContent] = TODO
+  def query(): Action[AnyContent] = TODO
 
   /**
    * GET /entity/new
