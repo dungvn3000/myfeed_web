@@ -36,10 +36,7 @@ object MyFeedBuild extends Build {
       "se.radley.plugin.salat.Binders._"
     ),
     templatesImport ++= Seq(
-      "org.bson.types.ObjectId",
-      "vn.myfeed.model._",
-      "dto._",
-      "model._"
+      "org.bson.types.ObjectId"
     ),
     resolvers ++= appResolvers
   )
@@ -56,14 +53,23 @@ object MyFeedBuild extends Build {
   val service = play.Project("service", appVersion, appDependencies, path = file("modules/service")).settings(playProjectSetting: _*)
     .dependsOn(plugin)
 
-  val admin = play.Project("admin", appVersion, appDependencies, path = file("modules/admin")).settings(playProjectSetting: _*)
-    .dependsOn(plugin, service)
+  val admin = play.Project("admin", appVersion, appDependencies, path = file("modules/admin")).settings(playProjectSetting ++ Seq(
+    templatesImport ++= Seq(
+      "vn.myfeed.model._",
+      "dto._",
+      "model._"
+    )): _*).dependsOn(plugin, service)
 
   //Add on project
   val chrome = Project("chrome", file("modules/chrome"), settings = scalaProjectSetting)
   //Add on project
   val firefox = Project("firefox", file("modules/firefox"), settings = scalaProjectSetting)
 
-  val main = play.Project(appName, appVersion, appDependencies).settings(playProjectSetting: _*).dependsOn(admin).aggregate(admin)
+  val main = play.Project(appName, appVersion, appDependencies).settings(playProjectSetting ++ Seq(
+    templatesImport ++= Seq(
+      "vn.myfeed.model._",
+      "dto._",
+      "model._"
+    )): _*).dependsOn(admin).aggregate(admin)
 
 }
