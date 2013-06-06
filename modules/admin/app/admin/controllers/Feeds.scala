@@ -7,10 +7,11 @@ import jp.t2v.lab.play2.auth.Auth
 import auth.AuthConfigImpl
 import vn.myfeed.model.Feed
 import play.api.libs.json._
-import plugin.ObjectIdFormat._
 import plugin.String2Int
 import dao.FeedDao
-import dto.DataTable
+import dto.{FormErrorDto, DataTable}
+import form.Forms
+import plugin.ObjectIdFormat._
 
 /**
  * The Class Feeds.
@@ -73,8 +74,55 @@ object Feeds extends RestFullController[ObjectId] with Auth with AuthConfigImpl 
    * @param id
    * @return
    */
-  override def show(id: ObjectId) = authorizedAction(Administrator)(implicit user => implicit request => {
-    Ok("545454")
+  override def get(id: ObjectId) = authorizedAction(Administrator)(implicit user => implicit request => {
+    Ok(Json.toJson(FeedDao.findOneById(id)))
   })
 
+  /**
+   * PUT /entity/1
+   * submit fields for updating the first record
+   * @param id
+   * @return
+   */
+  override def update(id: ObjectId) = authorizedAction(Administrator)(implicit user => implicit request => {
+    Forms.feedForm.bindFromRequest.fold(
+      fromError => {
+        val error = fromError.errors.map(FormErrorDto(_))
+        BadRequest(Json.toJson(error))
+      },
+      data => {
+        FeedDao.save(data.copy(_id = id))
+        Ok
+      }
+    )
+  })
+
+  /**
+   * POST /entity
+   * submit fields for creating a new record
+   * @return
+   */
+  override def create = authorizedAction(Administrator)(implicit user => implicit request => {
+    Forms.feedForm.bindFromRequest.fold(
+      fromError => {
+        val error = fromError.errors.map(FormErrorDto(_))
+        BadRequest(Json.toJson(error))
+      },
+      data => {
+        FeedDao.insert(data.copy(_id = new ObjectId()))
+        Ok
+      }
+    )
+  })
+
+  /**
+   * DELETE /entity/1
+   * destroy the first record
+   * @param id
+   * @return
+   */
+  override def delete(id: ObjectId) = authorizedAction(Administrator)(implicit user => implicit request => {
+    FeedDao.removeById(id)
+    Ok
+  })
 }

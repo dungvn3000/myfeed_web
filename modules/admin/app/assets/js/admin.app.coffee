@@ -11,12 +11,7 @@ app.config ($routeProvider, $stateProvider, $urlRouterProvider) ->
   $stateProvider.state 'feed.list', {
     url: ''
     templateUrl: '/admin/feed/partials/list'
-    controller: 'FeedController'
-  }
-
-  $stateProvider.state 'feed.detail', {
-    url: '/:feedId'
-    templateUrl: '/admin/feed/partials/detail'
+    controller: 'ListController'
   }
 
   $stateProvider.state 'maintenance', {

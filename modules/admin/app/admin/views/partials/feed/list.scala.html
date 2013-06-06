@@ -6,11 +6,11 @@
                 <option value="name">name</option>
                 <option value="url">url</option>
             </select>
-            <button class="btn" ng-click="value = ''; query(field, value, sort, order, 1, limit)">Clear</button>
+            <button class="btn" ng-click="value = ''; query(field, value, sort, order, 1, limit)">Reset</button>
         </form>
     </div>
     <div style="float:right">
-        <a class="btn btn-success btn-add" id="add" href="#/feed/1">Create new</a>
+        <a class="btn btn-success btn-add" id="add" href="" ng-click="add()">Create new</a>
     </div>
 </div>
 
@@ -18,18 +18,18 @@
     <thead>
     <tr>
         <th class="span1">TT</th>
-        <th class="header headerSortUp">Name</th>
-        <th class="header">Url</th>
+        <th class="header" ng-class="{headerSortUp: sort == 'name'}" ng-click="query(field, value, 'name', 0 - order, page, limit)">Name</th>
+        <th class="header" ng-class="{headerSortUp: sort == 'url'}" ng-click="query(field, value, 'url', 0 - order, page, limit)">Url</th>
         <th class="span2">Option</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="entry in data">
-        <td>{{data.indexOf(entry) + 1}}</td>
-        <td><a href="#/feed/{{entry._id}}">{{entry.name}}</a></td>
+        <td>{{data.indexOf(entry) + ((page - 1) * limit) + 1}}</td>
+        <td><a href="" ng-click="add(entry._id)">{{entry.name}}</a></td>
         <td>{{entry.url}}</td>
         <td>
-            <a href="">Delete</a>
+            <a href="" ng-click="delete(entry._id)">Delete</a>
         </td>
     </tr>
     </tbody>
@@ -38,11 +38,11 @@
 <div class="row-fluid">
     <div class="pagination" style="float:right">
         <ul>
-            <li><a href="">&laquo;</a></li>
+            <li ng-class="{disabled: page == 1}"><a href="" ng-click="query(field, value, sort, order, 1, limit)">&laquo;</a></li>
             <li ng-class="{active: page == i}" ng-repeat="i in [] | range:totalPage">
                 <a href="" ng-click="query(field, value, sort, order, i, limit)">{{i}}</a>
             </li>
-            <li class="disabled"><a href="#">&raquo;</a></li>
+            <li ng-class="{disabled: page == totalPage}"><a href="" ng-click="query(field, value, sort, order, totalPage, limit)">&raquo;</a></li>
         </ul>
     </div>
 </div>

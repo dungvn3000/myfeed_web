@@ -54,6 +54,7 @@ object MyFeedBuild extends Build {
   val plugin = play.Project("plugin", appVersion, appDependencies, path = file("modules/plugin")).settings(playProjectSetting: _*)
 
   val service = play.Project("service", appVersion, appDependencies, path = file("modules/service")).settings(playProjectSetting: _*)
+    .dependsOn(plugin)
 
   val admin = play.Project("admin", appVersion, appDependencies, path = file("modules/admin")).settings(playProjectSetting: _*)
     .dependsOn(plugin, service)

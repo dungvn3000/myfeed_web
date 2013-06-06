@@ -5,4 +5,15 @@ module.factory "Feed", ($resource) ->
     query:
       method: 'GET'
 
-  $resource '/admin/feed/:feedId/:method', {}, actions
+    update:
+      method: 'PUT'
+      isArray: true
+
+    create:
+      method: 'POST'
+      isArray: true
+
+    delete:
+      method: 'DELETE'
+
+  $resource '/admin/feed/:id', {}, actions

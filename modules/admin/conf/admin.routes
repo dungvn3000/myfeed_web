@@ -7,12 +7,10 @@ GET     /                           		admin.controllers.Home.index
 GET     /assets/*file               		admin.controllers.Assets.at(path="/public", file)
 
 GET     /feed                               admin.controllers.Feeds.query
-#GET     /feed/new                           admin.controllers.Feeds.add
-GET     /feed/:id                           admin.controllers.Feeds.show(id: ObjectId)
-#GET     /feed/:id/edit                      admin.controllers.Feeds.edit(id: ObjectId)
-#POST    /feed/                              admin.controllers.Feeds.create
-#PUT     /feed/:id                           admin.controllers.Feeds.update(id: ObjectId)
-#DELETE  /feed/:id                           admin.controllers.Feeds.delete(id: ObjectId)
+GET     /feed/:id                           admin.controllers.Feeds.get(id: ObjectId)
+POST    /feed                               admin.controllers.Feeds.create
+PUT     /feed/:id                           admin.controllers.Feeds.update(id: ObjectId)
+DELETE  /feed/:id                           admin.controllers.Feeds.delete(id: ObjectId)
 
 GET     /feed/partials/:view                admin.controllers.Feeds.partials(view)
 
