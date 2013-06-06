@@ -1,6 +1,6 @@
 module = angular.module('myFeed.admin.services', ['ngResource'])
 
-module.factory "Feed", ($resource) ->
+module.factory "Entry", ($resource) ->
   actions =
     query:
       method: 'GET'

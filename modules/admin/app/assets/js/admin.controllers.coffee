@@ -2,7 +2,7 @@ module = angular.module('myFeed.admin.controllers', ['ui.bootstrap'])
 
 module.controller 'HomeController', ($scope, $state) ->
 
-module.controller 'ListController', ($scope, $state, $dialog, Feed) ->
+module.controller 'ListController', ($scope, $state, $dialog, Entry) ->
   $scope.field = "name"
   $scope.value = ""
   $scope.sort = "_id"
@@ -29,11 +29,11 @@ module.controller 'ListController', ($scope, $state, $dialog, Feed) ->
     btns = [{result:'cancel', label: 'Cancel'}, {result:'ok', label: 'OK', cssClass: 'btn-primary'}]
     $dialog.messageBox(title, msg, btns).open().then (result) ->
       if result is 'ok'
-        Feed.delete {id: _id}
+        Entry.delete {id: _id}
         $scope.reload()
 
   query = (field, value, sort, order, page, limit) ->
-    Feed.query {f: field, v: value, s: sort, o: order, p: page, l: limit}, (dataTabe) ->
+    Entry.query {f: field, v: value, s: sort, o: order, p: page, l: limit}, (dataTabe) ->
       $scope.field = dataTabe.field
       $scope.value = dataTabe.value
       $scope.sort = dataTabe.sort
@@ -51,9 +51,9 @@ module.controller 'ListController', ($scope, $state, $dialog, Feed) ->
 
   reload()
 
-module.controller 'DetailController', ($scope, dialog, Feed) ->
+module.controller 'DetailController', ($scope, dialog, Entry) ->
   if dialog.options.id
-    $scope.entry = Feed.query {id: dialog.options.id}
+    $scope.entry = Entry.query {id: dialog.options.id}
 
   $scope.save = ->
     error = (result) ->
@@ -64,9 +64,9 @@ module.controller 'DetailController', ($scope, dialog, Feed) ->
       dialog.close()
 
     if dialog.options.id
-      Feed.update {id: $scope.entry._id}, $scope.entry, success, error
+      Entry.update {id: $scope.entry._id}, $scope.entry, success, error
     else
-      Feed.create $scope.entry, success, error
+      Entry.create $scope.entry, success, error
 
   $scope.close = ->
     dialog.close()
