@@ -11,7 +11,7 @@ import scala.collection.mutable.ListBuffer
  */
 case class Column(key: String, title: String, style: String = "width:100px")
 
-abstract class TableBuilder {
+abstract class TableBuilder[ObjectType <: AnyRef] {
 
   var cols = new ListBuffer[Column]
 

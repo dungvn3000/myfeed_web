@@ -16,7 +16,7 @@ module.controller 'ListController', ($scope, $state, $dialog, Entry) ->
       keyboard: true
       dialogFade: true
       backdropClick: true
-      templateUrl: 'admin/feed/partials/detail'
+      templateUrl: $state.current.detailTemplateUrl
       controller: 'DetailController'
       id: id
       reload: $scope.reload
@@ -29,8 +29,7 @@ module.controller 'ListController', ($scope, $state, $dialog, Entry) ->
     btns = [{result:'cancel', label: 'Cancel'}, {result:'ok', label: 'OK', cssClass: 'btn-primary'}]
     $dialog.messageBox(title, msg, btns).open().then (result) ->
       if result is 'ok'
-        Entry.delete {id: _id}
-        $scope.reload()
+        Entry.delete {id: _id}, () -> $scope.reload()
 
   query = (field, value, sort, order, page, limit) ->
     Entry.query {f: field, v: value, s: sort, o: order, p: page, l: limit}, (dataTabe) ->

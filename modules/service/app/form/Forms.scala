@@ -17,15 +17,6 @@ import curd.FormBuilder
  */
 object Forms {
 
-  val feedFormBuilder: FormBuilder[Feed] = new FormBuilder[Feed]("Feed Form") {
-    val form = Form(
-      mapping(
-        "id" -> ignored[ObjectId](new ObjectId()),
-        textField("name", '_label -> "Name *") -> nonEmptyText,
-        textField("url", '_label -> "Url *") -> nonEmptyText.verifying(urlConstraint),
-        textField("topic", '_label -> "Topic") -> optional(text)
-      )(Feed.apply)(Feed.unapply)
-    )
-  }
+
 
 }

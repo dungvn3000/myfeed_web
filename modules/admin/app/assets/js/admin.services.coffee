@@ -1,6 +1,6 @@
 module = angular.module('myFeed.admin.services', ['ngResource'])
 
-module.factory "Entry", ($resource) ->
+module.factory "Entry", ($resource, $state) ->
   actions =
     query:
       method: 'GET'
@@ -16,4 +16,4 @@ module.factory "Entry", ($resource) ->
     delete:
       method: 'DELETE'
 
-  $resource '/admin/feed/:id', {}, actions
+  $resource $state.current.jsonUrl, {}, actions

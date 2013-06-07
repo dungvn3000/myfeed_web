@@ -14,7 +14,9 @@ import play.api.Play.current
  * @since 5/1/13 4:59 AM
  *
  */
-object FeedDao extends SalatDAO[Feed, ObjectId](mongoCollection("feed")) with BaseDao[Feed, ObjectId] {
+object FeedDao extends BaseDao[Feed, ObjectId] {
+
+  def dao = new SalatDAO[Feed, ObjectId](mongoCollection("feed")) {}
 
   def findByUrl(url: String) = findOne(MongoDBObject("url" -> url))
 

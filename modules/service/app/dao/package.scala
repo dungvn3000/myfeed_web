@@ -1,4 +1,5 @@
 import com.novus.salat.Context
+import com.novus.salat.json.{StringObjectIdStrategy, JSONConfig}
 
 /**
  * The Class package.
@@ -11,6 +12,7 @@ package object dao {
 
   implicit val ctx = new Context {
     val name = "global"
+    override val jsonConfig = new JSONConfig(objectIdStrategy= StringObjectIdStrategy)
   }
 
 }
