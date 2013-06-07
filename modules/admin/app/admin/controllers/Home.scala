@@ -4,7 +4,6 @@ import play.api.mvc.Controller
 import jp.t2v.lab.play2.auth.Auth
 import auth.AuthConfigImpl
 import model.Administrator
-import play.api.Play
 
 /**
  * The Class Home.

@@ -1,10 +1,9 @@
 @(table: curd.TableBuilder[_])
 
-
 <div class="table-control row-fluid">
     <div class="span5">
         <form class="form-inline" action="">
-            <input type="search" class="span6" ng-model="value"  ng-change="query(field, value, sort, order, 1, limit)" placeholder="Search by name">
+            <input type="search" class="span6" ng-model="value"  ng-change="query(field, value, sort, order, 1, limit)" placeholder="Search...">
             <select class="span3" ng-model="field" ng-change="query(field, value, sort, order, 1, limit)">
                 @for(col <- table.cols) {
                 <option value="@col.key">@col.title</option>
