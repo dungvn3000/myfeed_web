@@ -16,4 +16,4 @@ module.factory "Entry", ($resource, $state) ->
     delete:
       method: 'DELETE'
 
-  $resource $state.current.jsonUrl, {}, actions
+  $resource '/admin/:entity/:id', {}, actions

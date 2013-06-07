@@ -18,7 +18,7 @@ object FormErrorDto {
 
   def apply(formError: FormError) = new FormErrorDto(
     key = formError.key,
-    msg = Messages(formError.message, formError.args)
+    msg = Messages(formError.message, formError.args:_*)
   )
 
   implicit val jsonWrite = (

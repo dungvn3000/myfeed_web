@@ -45,7 +45,7 @@ trait BaseController[ObjectType <: AnyRef, ID <: Any] extends RestFullController
    * @return
    */
   override def query = authorizedAction(Administrator)(implicit user => implicit request => {
-    val field = request.getQueryString("f").getOrElse("name")
+    val field = request.getQueryString("f").getOrElse(tableBuilder.cols(0).key)
     val value = request.getQueryString("v").getOrElse("")
     val sort = request.getQueryString("s").getOrElse("_id")
     val order = request.getQueryString("o").collect {

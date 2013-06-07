@@ -7,7 +7,9 @@ import com.novus.salat.dao.SalatDAO
 import org.bson.types.ObjectId
 import vn.myfeed.model.User
 
-object UserDao extends SalatDAO[User, ObjectId](collection = mongoCollection("user")) {
+object UserDao extends BaseDao[User, ObjectId] {
+
+  def dao = new SalatDAO[User, ObjectId](collection = mongoCollection("user")){}
 
   def findByUserName(username: String) = findOne(MongoDBObject("username" -> username))
 

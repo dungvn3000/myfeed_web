@@ -6,13 +6,22 @@ GET     /                           		admin.controllers.Home.index
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               		admin.controllers.Assets.at(path="/public", file)
 
+#Feed CURD
 GET     /feed                               admin.controllers.Feeds.query
 GET     /feed/:id                           admin.controllers.Feeds.get(id: ObjectId)
 POST    /feed                               admin.controllers.Feeds.create
 PUT     /feed/:id                           admin.controllers.Feeds.update(id: ObjectId)
 DELETE  /feed/:id                           admin.controllers.Feeds.delete(id: ObjectId)
-
 GET     /feed/partials/:view                admin.controllers.Feeds.partials(view)
+
+#User CURD
+GET     /user                               admin.controllers.Users.query
+GET     /user/:id                           admin.controllers.Users.get(id: ObjectId)
+POST    /user                               admin.controllers.Users.create
+PUT     /user/:id                           admin.controllers.Users.update(id: ObjectId)
+DELETE  /user/:id                           admin.controllers.Users.delete(id: ObjectId)
+GET     /user/partials/:view                admin.controllers.Users.partials(view)
+
 
 GET     /maintenance/shutdown               admin.controllers.Maintenance.shutdown
 GET     /maintenance/partials/:view         admin.controllers.Maintenance.partials(view)

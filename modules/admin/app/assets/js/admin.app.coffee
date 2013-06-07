@@ -12,7 +12,21 @@ app.config ($routeProvider, $stateProvider, $urlRouterProvider) ->
     url: ''
     templateUrl: '/admin/feed/partials/list'
     detailTemplateUrl: '/admin/feed/partials/detail'
-    jsonUrl: '/admin/feed/:id'
+    entity: 'feed'
+    controller: 'ListController'
+  }
+
+  $stateProvider.state 'user', {
+    url: '/user'
+    'abstract': true
+    templateUrl: '/admin/user/partials/index'
+  }
+
+  $stateProvider.state 'user.list', {
+    url: ''
+    templateUrl: '/admin/user/partials/list'
+    detailTemplateUrl: '/admin/user/partials/detail'
+    entity: 'user'
     controller: 'ListController'
   }
 

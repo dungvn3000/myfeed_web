@@ -3,7 +3,8 @@ module = angular.module('myFeed.admin.controllers', ['ui.bootstrap'])
 module.controller 'HomeController', ($scope, $state) ->
 
 module.controller 'ListController', ($scope, $state, $dialog, Entry) ->
-  $scope.field = "name"
+  # this value will be init by view when it render please do not init it
+  # $scope.field = ""
   $scope.value = ""
   $scope.sort = "_id"
   $scope.order = 1
@@ -29,10 +30,10 @@ module.controller 'ListController', ($scope, $state, $dialog, Entry) ->
     btns = [{result:'cancel', label: 'Cancel'}, {result:'ok', label: 'OK', cssClass: 'btn-primary'}]
     $dialog.messageBox(title, msg, btns).open().then (result) ->
       if result is 'ok'
-        Entry.delete {id: _id}, () -> $scope.reload()
+        Entry.delete {entity: $state.current.entity, id: _id}, () -> $scope.reload()
 
   query = (field, value, sort, order, page, limit) ->
-    Entry.query {f: field, v: value, s: sort, o: order, p: page, l: limit}, (dataTabe) ->
+    Entry.query {entity: $state.current.entity, f: field, v: value, s: sort, o: order, p: page, l: limit}, (dataTabe) ->
       $scope.field = dataTabe.field
       $scope.value = dataTabe.value
       $scope.sort = dataTabe.sort
@@ -50,9 +51,9 @@ module.controller 'ListController', ($scope, $state, $dialog, Entry) ->
 
   reload()
 
-module.controller 'DetailController', ($scope, dialog, Entry) ->
+module.controller 'DetailController', ($scope, $state, dialog, Entry) ->
   if dialog.options.id
-    $scope.entry = Entry.query {id: dialog.options.id}
+    $scope.entry = Entry.query {entity: $state.current.entity, id: dialog.options.id}
 
   $scope.save = ->
     error = (result) ->
@@ -63,9 +64,9 @@ module.controller 'DetailController', ($scope, dialog, Entry) ->
       dialog.close()
 
     if dialog.options.id
-      Entry.update {id: $scope.entry._id}, $scope.entry, success, error
+      Entry.update {entity: $state.current.entity, id: $scope.entry._id}, $scope.entry, success, error
     else
-      Entry.create $scope.entry, success, error
+      Entry.create {entity: $state.current.entity}, $scope.entry, success, error
 
   $scope.close = ->
     dialog.close()
