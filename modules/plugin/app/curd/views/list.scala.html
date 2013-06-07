@@ -1,10 +1,12 @@
+@(table: curd.TableBuilder)
 <div class="table-control row-fluid">
     <div class="span5">
         <form class="form-inline" action="">
             <input type="search" class="span6" ng-model="value"  ng-change="query(field, value, sort, order, 1, limit)" placeholder="Search by name">
             <select class="span3" ng-model="field" ng-change="query(field, value, sort, order, 1, limit)">
-                <option value="name">name</option>
-                <option value="url">url</option>
+                @for(col <- table.cols) {
+                <option value="@col.key">@col.title</option>
+                }
             </select>
             <button class="btn" ng-click="value = ''; query(field, value, sort, order, 1, limit)">Reset</button>
         </form>
@@ -18,16 +20,22 @@
     <thead>
     <tr>
         <th class="span1">TT</th>
-        <th class="header" ng-class="{headerSortUp: sort == 'name'}" ng-click="query(field, value, 'name', 0 - order, page, limit)">Name</th>
-        <th class="header" ng-class="{headerSortUp: sort == 'url'}" ng-click="query(field, value, 'url', 0 - order, page, limit)">Url</th>
-        <th class="span2">Option</th>
+        @for(col <- table.cols) {
+        <th style="@col.style" class="header" ng-class="{headerSortUp: sort == '@col.key'}" ng-click="query(field, value, '@col.key', 0 - order, page, limit)">@col.title</th>
+        }
+        <th class="span1">Option</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="entry in data">
         <td>{{data.indexOf(entry) + ((page - 1) * limit) + 1}}</td>
-        <td><a href="" ng-click="add(entry._id)">{{entry.name}}</a></td>
-        <td>{{entry.url}}</td>
+        @for(col <- table.cols) {
+            @if(table.cols.indexOf(col) == 0) {
+                <td><a href="" ng-click="add(entry._id)">{{entry.@col.key}}</a></td>
+            } else {
+                <td>{{entry.@col.key}}</td>
+            }
+        }
         <td>
             <a href="" ng-click="delete(entry._id)">Delete</a>
         </td>

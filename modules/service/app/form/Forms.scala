@@ -6,6 +6,7 @@ import validation.Constraint._
 import vn.myfeed.model.Feed
 import org.bson.types.ObjectId
 import plugin.ObjectIdFormat._
+import curd.FormBuilder
 
 /**
  * The Class FeedForm.
@@ -16,13 +17,15 @@ import plugin.ObjectIdFormat._
  */
 object Forms {
 
-  lazy val feedForm = Form(
-    mapping(
-      "id" -> ignored[ObjectId](new ObjectId()),
-      "name" -> nonEmptyText,
-      "url" -> nonEmptyText.verifying(urlConstraint),
-      "topic" -> optional(text)
-    )(Feed.apply)(Feed.unapply)
-  )
+  val feedFormBuilder: FormBuilder[Feed] = new FormBuilder[Feed]("Feed Form") {
+    val form = Form(
+      mapping(
+        "id" -> ignored[ObjectId](new ObjectId()),
+        textField("name", '_label -> "Name *") -> nonEmptyText,
+        textField("url", '_label -> "Url *") -> nonEmptyText.verifying(urlConstraint),
+        textField("topic", '_label -> "Topic") -> optional(text)
+      )(Feed.apply)(Feed.unapply)
+    )
+  }
 
 }

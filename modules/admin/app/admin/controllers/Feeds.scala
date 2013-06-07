@@ -11,6 +11,8 @@ import plugin.String2Int
 import dao.FeedDao
 import dto.{FormErrorDto, DataTable}
 import form.Forms
+import curd.TableBuilder
+import Forms._
 import plugin.ObjectIdFormat._
 
 /**
@@ -25,10 +27,16 @@ object Feeds extends RestFullController[ObjectId] with Auth with AuthConfigImpl 
   implicit val feedWriter: Writes[Feed] = Json.writes[Feed]
   implicit val dataWriter: Writes[DataTable] = Json.writes[DataTable]
 
+  object FeedTable extends TableBuilder {
+    column("name", "Name")
+    column("url", "Url")
+    column("topic", "Topic")
+  }
+
   lazy val routes = Map(
-    "index" -> Ok(admin.views.html.partials.feed.index()),
-    "list" -> Ok(admin.views.html.partials.feed.list()),
-    "detail" -> Ok(admin.views.html.partials.feed.detail())
+    "index" -> Ok(curd.views.html.index()),
+    "list" -> Ok(curd.views.html.list(FeedTable)),
+    "detail" -> Ok(curd.views.html.detail(feedFormBuilder.build()))
   )
 
   def partials(view: String) = authorizedAction(Administrator)(implicit user => implicit request => {
@@ -85,7 +93,7 @@ object Feeds extends RestFullController[ObjectId] with Auth with AuthConfigImpl 
    * @return
    */
   override def update(id: ObjectId) = authorizedAction(Administrator)(implicit user => implicit request => {
-    Forms.feedForm.bindFromRequest.fold(
+    feedFormBuilder.form.bindFromRequest.fold(
       fromError => {
         val error = fromError.errors.map(FormErrorDto(_))
         BadRequest(Json.toJson(error))
@@ -103,7 +111,7 @@ object Feeds extends RestFullController[ObjectId] with Auth with AuthConfigImpl 
    * @return
    */
   override def create = authorizedAction(Administrator)(implicit user => implicit request => {
-    Forms.feedForm.bindFromRequest.fold(
+    feedFormBuilder.form.bindFromRequest.fold(
       fromError => {
         val error = fromError.errors.map(FormErrorDto(_))
         BadRequest(Json.toJson(error))
