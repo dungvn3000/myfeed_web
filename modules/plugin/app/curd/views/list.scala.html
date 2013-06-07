@@ -1,23 +1,24 @@
 @(table: curd.TableBuilder[_])
 
-<div ng-show="data.length > 0">
-    <div class="table-control row-fluid">
-        <div class="span5">
-            <form class="form-inline" action="">
-                <input type="search" class="span6" ng-model="value"  ng-change="query(field, value, sort, order, 1, limit)" placeholder="Search by name">
-                <select class="span3" ng-model="field" ng-change="query(field, value, sort, order, 1, limit)">
-                    @for(col <- table.cols) {
-                    <option value="@col.key">@col.title</option>
-                    }
-                </select>
-                <button class="btn" ng-click="value = ''; query(field, value, sort, order, 1, limit)">Reset</button>
-            </form>
-        </div>
-        <div style="float:right">
-            <a class="btn btn-success btn-add" id="add" href="" ng-click="add()">Create new</a>
-        </div>
-    </div>
 
+<div class="table-control row-fluid">
+    <div class="span5">
+        <form class="form-inline" action="">
+            <input type="search" class="span6" ng-model="value"  ng-change="query(field, value, sort, order, 1, limit)" placeholder="Search by name">
+            <select class="span3" ng-model="field" ng-change="query(field, value, sort, order, 1, limit)">
+                @for(col <- table.cols) {
+                <option value="@col.key">@col.title</option>
+                }
+            </select>
+            <button class="btn" ng-click="value = ''; query(field, value, sort, order, 1, limit)">Reset</button>
+        </form>
+    </div>
+    <div style="float:right">
+        <a class="btn btn-success btn-add" id="add" href="" ng-click="add()">Create new</a>
+    </div>
+</div>
+
+<div ng-show="data.length > 0">
     <table class="table table-bordered table-condensed table-hover">
         <thead>
         <tr>
