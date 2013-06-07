@@ -8,4 +8,7 @@ module.constant("configs", [
   {
     entity: "user"
   }
+  {
+    entity: "log"
+  }
 ])

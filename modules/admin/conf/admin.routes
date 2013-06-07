@@ -22,6 +22,11 @@ PUT     /user/:id                           admin.controllers.Users.update(id: O
 DELETE  /user/:id                           admin.controllers.Users.delete(id: ObjectId)
 GET     /user/partials/:view                admin.controllers.Users.partials(view)
 
+#Loging CURD
+GET     /log                                admin.controllers.Logs.query
+GET     /log/:id                            admin.controllers.Logs.get(id: ObjectId)
+DELETE  /log/:id                            admin.controllers.Logs.delete(id: ObjectId)
+GET     /log/partials/:view                 admin.controllers.Logs.partials(view)
 
 GET     /maintenance/shutdown               admin.controllers.Maintenance.shutdown
 GET     /maintenance/partials/:view         admin.controllers.Maintenance.partials(view)

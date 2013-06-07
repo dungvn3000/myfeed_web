@@ -4,13 +4,12 @@ import controllers.RestFullController
 import jp.t2v.lab.play2.auth.Auth
 import auth.AuthConfigImpl
 import play.api.libs.json._
-import dto.FormErrorDto
 import model.Administrator
 import plugin.String2Int
 import dao.BaseDao
-import curd.{TableBuilder, FormBuilder}
+import curd.TableBuilder
 import dto.DataTable
-import play.api.data.FormError
+import play.api.mvc.{Result, AnyContent, Action}
 
 /**
  * The Class BaseController.
@@ -25,17 +24,15 @@ trait BaseController[ObjectType <: AnyRef, ID <: Any] extends RestFullController
 
   val dao: BaseDao[ObjectType, ID]
 
-  val formBuilder: FormBuilder[ObjectType]
-
   val tableBuilder: TableBuilder[ObjectType]
 
   val pageTitle: String
 
-  lazy val routes = Map(
-    "index" -> Ok(curd.views.html.index(pageTitle)),
-    "list" -> Ok(curd.views.html.list(tableBuilder)),
-    "detail" -> Ok(curd.views.html.detail(formBuilder.build()))
-  )
+  protected def routes(view: String): Result = view match {
+    case "index" => Ok(curd.views.html.index(pageTitle))
+    case "list" => Ok(curd.views.html.list(tableBuilder))
+    case _ => NotFound
+  }
 
   def partials(view: String) = authorizedAction(Administrator)(implicit user => implicit request => {
     routes(view)
@@ -85,39 +82,6 @@ trait BaseController[ObjectType <: AnyRef, ID <: Any] extends RestFullController
     }).getOrElse(NotFound)
   })
 
-  /**
-   * PUT /entity/1
-   * submit fields for updating the first record
-   * @param id
-   * @return
-   */
-  override def update(id: ID) = create
-
-  /**
-   * POST /entity
-   * submit fields for creating a new record
-   * @return
-   */
-  override def create = authorizedAction(Administrator)(implicit user => implicit request => {
-    formBuilder.form.bindFromRequest.fold(
-      fromError => {
-        val error = fromError.errors.map(FormErrorDto(_))
-        BadRequest(Json.toJson(error))
-      },
-      data => {
-        customValidate(data) match {
-          case None => {
-            dao.save(data)
-            Ok
-          }
-          case Some(errors) => {
-            val error = errors.map(FormErrorDto(_))
-            BadRequest(Json.toJson(error))
-          }
-        }
-      }
-    )
-  })
 
   /**
    * DELETE /entity/1
@@ -130,11 +94,5 @@ trait BaseController[ObjectType <: AnyRef, ID <: Any] extends RestFullController
     Ok
   })
 
-  /**
-   * Custom validation
-   * @param entity
-   * @return
-   */
-  def customValidate(entity: ObjectType): Option[Seq[FormError]] = None
 
 }

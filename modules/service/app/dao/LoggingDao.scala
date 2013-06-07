@@ -14,6 +14,6 @@ import play.api.Play.current
  * @since 5/7/13 12:07 AM
  *
  */
-object LoggingDao extends SalatDAO[Logging, ObjectId](mongoCollection("logging")) {
-
+object LoggingDao extends BaseDao[Logging, ObjectId] {
+  def dao = new SalatDAO[Logging, ObjectId](mongoCollection("logging")){}
 }

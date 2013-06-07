@@ -17,7 +17,7 @@ import play.api.i18n.Messages
  * @since 6/7/13 3:46 PM
  *
  */
-object Users extends BaseController[User, ObjectId] {
+object Users extends CurdController[User, ObjectId] {
 
   val pageTitle = Messages("user.title")
 

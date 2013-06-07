@@ -10,7 +10,6 @@ import vn.myfeed.model.Feed
 import plugin.ObjectIdFormat._
 import scala.collection.mutable.ListBuffer
 import com.mongodb.casbah.commons.MongoDBObject
-import play.api.i18n.Messages.Message
 import play.api.i18n.Messages
 
 /**
@@ -20,7 +19,7 @@ import play.api.i18n.Messages
  * @since 6/5/13 8:09 AM
  *
  */
-object Feeds extends BaseController[Feed, ObjectId] {
+object Feeds extends CurdController[Feed, ObjectId] {
 
   val pageTitle = Messages("feed.title")
 

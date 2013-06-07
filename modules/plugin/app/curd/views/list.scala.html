@@ -1,56 +1,63 @@
 @(table: curd.TableBuilder[_])
-<div class="table-control row-fluid">
-    <div class="span5">
-        <form class="form-inline" action="">
-            <input type="search" class="span6" ng-model="value"  ng-change="query(field, value, sort, order, 1, limit)" placeholder="Search by name">
-            <select class="span3" ng-model="field" ng-change="query(field, value, sort, order, 1, limit)">
-                @for(col <- table.cols) {
+
+<div ng-show="data.length > 0">
+    <div class="table-control row-fluid">
+        <div class="span5">
+            <form class="form-inline" action="">
+                <input type="search" class="span6" ng-model="value"  ng-change="query(field, value, sort, order, 1, limit)" placeholder="Search by name">
+                <select class="span3" ng-model="field" ng-change="query(field, value, sort, order, 1, limit)">
+                    @for(col <- table.cols) {
                     <option value="@col.key">@col.title</option>
-                }
-            </select>
-            <button class="btn" ng-click="value = ''; query(field, value, sort, order, 1, limit)">Reset</button>
-        </form>
+                    }
+                </select>
+                <button class="btn" ng-click="value = ''; query(field, value, sort, order, 1, limit)">Reset</button>
+            </form>
+        </div>
+        <div style="float:right">
+            <a class="btn btn-success btn-add" id="add" href="" ng-click="add()">Create new</a>
+        </div>
     </div>
-    <div style="float:right">
-        <a class="btn btn-success btn-add" id="add" href="" ng-click="add()">Create new</a>
+
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+        <tr>
+            <th class="span1">TT</th>
+            @for(col <- table.cols) {
+            <th style="@col.style" class="header" ng-class="{headerSortUp: sort == '@col.key'}" ng-click="query(field, value, '@col.key', 0 - order, page, limit)">@col.title</th>
+            }
+            <th class="span1">Option</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="entry in data">
+            <td>{{data.indexOf(entry) + ((page - 1) * limit) + 1}}</td>
+            @for(col <- table.cols) {
+            @if(table.cols.indexOf(col) == 0) {
+            <td><a href="" ng-click="add(entry._id)">{{entry.@col.key}}</a></td>
+            } else {
+            <td>{{entry.@col.key}}</td>
+            }
+            }
+            <td>
+                <a href="" ng-click="delete(entry._id)">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="row-fluid">
+        <div class="pagination" style="float:right">
+            <ul>
+                <li ng-class="{disabled: page == 1}"><a href="" ng-click="query(field, value, sort, order, 1, limit)">&laquo;</a></li>
+                <li ng-class="{active: page == i}" ng-repeat="i in [] | range:totalPage">
+                    <a href="" ng-click="query(field, value, sort, order, i, limit)">{{i}}</a>
+                </li>
+                <li ng-class="{disabled: page == totalPage}"><a href="" ng-click="query(field, value, sort, order, totalPage, limit)">&raquo;</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 
-<table class="table table-bordered table-condensed table-hover">
-    <thead>
-    <tr>
-        <th class="span1">TT</th>
-        @for(col <- table.cols) {
-        <th style="@col.style" class="header" ng-class="{headerSortUp: sort == '@col.key'}" ng-click="query(field, value, '@col.key', 0 - order, page, limit)">@col.title</th>
-        }
-        <th class="span1">Option</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="entry in data">
-        <td>{{data.indexOf(entry) + ((page - 1) * limit) + 1}}</td>
-        @for(col <- table.cols) {
-            @if(table.cols.indexOf(col) == 0) {
-                <td><a href="" ng-click="add(entry._id)">{{entry.@col.key}}</a></td>
-            } else {
-                <td>{{entry.@col.key}}</td>
-            }
-        }
-        <td>
-            <a href="" ng-click="delete(entry._id)">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<div class="row-fluid">
-    <div class="pagination" style="float:right">
-        <ul>
-            <li ng-class="{disabled: page == 1}"><a href="" ng-click="query(field, value, sort, order, 1, limit)">&laquo;</a></li>
-            <li ng-class="{active: page == i}" ng-repeat="i in [] | range:totalPage">
-                <a href="" ng-click="query(field, value, sort, order, i, limit)">{{i}}</a>
-            </li>
-            <li ng-class="{disabled: page == totalPage}"><a href="" ng-click="query(field, value, sort, order, totalPage, limit)">&raquo;</a></li>
-        </ul>
-    </div>
+<div class="well" ng-show="data.length == 0">
+    <strong>Nothing to show</strong>
 </div>
