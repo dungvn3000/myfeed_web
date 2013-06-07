@@ -29,8 +29,10 @@ trait BaseController[ObjectType <: AnyRef, ID <: Any] extends RestFullController
 
   val tableBuilder: TableBuilder[ObjectType]
 
+  val pageTitle: String
+
   lazy val routes = Map(
-    "index" -> Ok(curd.views.html.index()),
+    "index" -> Ok(curd.views.html.index(pageTitle)),
     "list" -> Ok(curd.views.html.list(tableBuilder)),
     "detail" -> Ok(curd.views.html.detail(formBuilder.build()))
   )

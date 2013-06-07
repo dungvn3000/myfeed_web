@@ -1,34 +1,24 @@
-app = angular.module('myFeed.admin', ['myFeed.admin.filters', 'myFeed.admin.services', 'myFeed.admin.directives',
-                                      'myFeed.admin.controllers', 'ui.utils', 'ui.bootstrap', 'ui.compat'])
+app = angular.module('myFeed.admin', ['myFeed.admin.config', 'myFeed.admin.filters', 'myFeed.admin.services', 'myFeed.admin.directives',
+   'myFeed.admin.controllers', 'ui.utils', 'ui.bootstrap', 'ui.compat'])
 
-app.config ($routeProvider, $stateProvider, $urlRouterProvider) ->
-  $stateProvider.state 'feed', {
-    url: '/feed'
-    'abstract': true
-    templateUrl: '/admin/feed/partials/index'
-  }
+app.config ($routeProvider, $stateProvider, $urlRouterProvider, configs) ->
 
-  $stateProvider.state 'feed.list', {
-    url: ''
-    templateUrl: '/admin/feed/partials/list'
-    detailTemplateUrl: '/admin/feed/partials/detail'
-    entity: 'feed'
-    controller: 'ListController'
-  }
+  #Curd module config
+  for config in configs
+    $stateProvider.state config.entity, {
+      url: '/' + config.entity
+      'abstract': true
+      templateUrl: "/admin/#{ config.entity }/partials/index"
+    }
 
-  $stateProvider.state 'user', {
-    url: '/user'
-    'abstract': true
-    templateUrl: '/admin/user/partials/index'
-  }
+    $stateProvider.state config.entity + '.list', {
+      url: ''
+      templateUrl: "/admin/#{ config.entity }/partials/list"
+      detailTemplateUrl: "/admin/#{ config.entity }/partials/detail"
+      entity: config.entity
+      controller: 'ListController'
+    }
 
-  $stateProvider.state 'user.list', {
-    url: ''
-    templateUrl: '/admin/user/partials/list'
-    detailTemplateUrl: '/admin/user/partials/detail'
-    entity: 'user'
-    controller: 'ListController'
-  }
 
   $stateProvider.state 'maintenance', {
     url: '/maintenance'

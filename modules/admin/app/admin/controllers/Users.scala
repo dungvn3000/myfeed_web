@@ -8,6 +8,7 @@ import play.api.data.Forms._
 import vn.myfeed.model.User
 import model.Role
 import plugin.ObjectIdFormat._
+import play.api.i18n.Messages
 
 /**
  * The Class Users.
@@ -17,6 +18,8 @@ import plugin.ObjectIdFormat._
  *
  */
 object Users extends BaseController[User, ObjectId] {
+
+  val pageTitle = Messages("user.title")
 
   val dao = UserDao
 

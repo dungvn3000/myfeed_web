@@ -10,6 +10,8 @@ import vn.myfeed.model.Feed
 import plugin.ObjectIdFormat._
 import scala.collection.mutable.ListBuffer
 import com.mongodb.casbah.commons.MongoDBObject
+import play.api.i18n.Messages.Message
+import play.api.i18n.Messages
 
 /**
  * The Class Feeds.
@@ -19,6 +21,8 @@ import com.mongodb.casbah.commons.MongoDBObject
  *
  */
 object Feeds extends BaseController[Feed, ObjectId] {
+
+  val pageTitle = Messages("feed.title")
 
   val dao = FeedDao
 

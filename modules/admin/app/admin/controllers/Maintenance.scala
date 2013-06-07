@@ -5,6 +5,7 @@ import jp.t2v.lab.play2.auth.Auth
 import auth.AuthConfigImpl
 import model.Administrator
 import play.api.Play
+import play.api.i18n.Messages
 
 /**
  * The Class Maintenance.
@@ -16,7 +17,7 @@ import play.api.Play
 object Maintenance extends Controller with Auth with AuthConfigImpl {
 
   lazy val routes = Map(
-    "index" -> Ok(admin.views.html.partials.maintenance.index())
+    "index" -> Ok(admin.views.html.partials.maintenance.index(Messages("maintenance.title")))
   )
 
   def partials(view: String) = authorizedAction(Administrator)(implicit user => implicit request => {
