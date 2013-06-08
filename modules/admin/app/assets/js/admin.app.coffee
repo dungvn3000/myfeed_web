@@ -1,5 +1,5 @@
 app = angular.module('myFeed.admin', ['myFeed.admin.config', 'myFeed.admin.filters', 'myFeed.admin.services', 'myFeed.admin.directives',
-   'myFeed.admin.controllers', 'ui.utils', 'ui.bootstrap', 'ui.compat'])
+   'myFeed.admin.controllers', 'ui.utils', 'ui.bootstrap', 'ui.compat', 'http-loading-interceptor'])
 
 app.config ($routeProvider, $stateProvider, $urlRouterProvider, configs) ->
 

@@ -1,7 +1,8 @@
 angular.module('http-loading-interceptor', [])
   .config(['$httpProvider', ($httpProvider) ->
     interceptor = (data, headersGetter) ->
-      $('#infscr-loading').fadeIn('normal')
+      if !$("#infscr-loading").is(":visible")
+        $("#infscr-loading").show()
       data
     $httpProvider.defaults.transformRequest.push(interceptor)
   ])
@@ -9,10 +10,10 @@ angular.module('http-loading-interceptor', [])
   .config(['$httpProvider', ($httpProvider) ->
     interceptor = ['$q', '$window', ($q, $window) ->
       success = (response) ->
-        $('#infscr-loading').fadeOut('normal')
+        $("#infscr-loading").delay("slow").fadeOut();
         response
       error = (response) ->
-        $('#infscr-loading').fadeOut('normal')
+        $("#infscr-loading").delay("slow").fadeOut();
         $q.reject(response)
       return (promise) -> promise.then(success, error)
     ]
