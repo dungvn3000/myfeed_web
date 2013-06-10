@@ -1,4 +1,4 @@
-import actor.MetricActor
+import admin.actor.MetricActor
 import akka.actor.Props
 import com.codahale.metrics.MetricRegistry
 import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers
@@ -30,7 +30,7 @@ object Global extends WithFilters(AccessLog) {
     Logger.info("Starting Application")
     RegisterJodaTimeConversionHelpers()
     val myActor = Akka.system.actorOf(Props(new MetricActor(metric)), name = "metricActor")
-    Akka.system.scheduler.schedule(30.seconds, 30.seconds, myActor, "print")
+    Akka.system.scheduler.schedule(10.seconds, 10.seconds, myActor, "print")
   }
 
   override def onStop(app: Application) {

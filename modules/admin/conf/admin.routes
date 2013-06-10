@@ -28,5 +28,6 @@ GET     /log/:id                            admin.controllers.Logs.get(id: Objec
 DELETE  /log/:id                            admin.controllers.Logs.delete(id: ObjectId)
 GET     /log/partials/:view                 admin.controllers.Logs.partials(view)
 
+GET     /maintenance/metric                 admin.controllers.Maintenance.metric
 GET     /maintenance/shutdown               admin.controllers.Maintenance.shutdown
 GET     /maintenance/partials/:view         admin.controllers.Maintenance.partials(view)

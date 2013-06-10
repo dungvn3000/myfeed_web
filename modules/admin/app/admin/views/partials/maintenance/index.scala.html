@@ -2,7 +2,61 @@
 <legend>
     <h3>@pageTitle</h3>
 </legend>
-<div>
+
+<div class="row-fluid">
+    <div class="span4">
+        <canvas id="request" width="300" height="100"></canvas>
+        <p>Requests Metric (requests/second)</p>
+    </div>
+    <div class="span4">
+        <canvas id="cpu" width="300" height="100"></canvas>
+        <p>Cpu Metric (load/second)</p>
+    </div>
+    <div class="span4">
+        <canvas id="memory" width="300" height="100"></canvas>
+        <p>Memory Metric (load/second)</p>
+    </div>
+</div>
+<legend>
+    Control button
+</legend>
+<div class="well">
     <a href="" class="btn btn-success">Upgrade</a>
     <a href="/admin/maintenance/shutdown" class="btn btn-danger">Shutdown</a>
 </div>
+<script type="text/javascript">
+    $(function () {
+        var timeline1 = new SmoothieChart({
+            minValue: 0,
+            maxValue: 100
+        });
+
+        var timeline2 = new SmoothieChart({
+            minValue: 0,
+            maxValue: 100
+        });
+
+        var timeline3 = new SmoothieChart({
+            minValue: 0,
+            maxValue: 1000
+        });
+
+        timeline1.streamTo(document.getElementById("request"), 1000 * 10);
+        timeline2.streamTo(document.getElementById("cpu"), 1000 * 10);
+        timeline3.streamTo(document.getElementById("memory"), 1000 * 10);
+        var line1 = new TimeSeries();
+        var line2 = new TimeSeries();
+        var line3 = new TimeSeries();
+        var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
+        var chatSocket = new WS("ws://localhost:9000/admin/maintenance/metric");
+        chatSocket.onmessage = function (event) {
+            var data = JSON.parse(event.data);
+            line1.append(new Date().getTime(), data.request);
+            line2.append(new Date().getTime(), data.cpu);
+            line3.append(new Date().getTime(), data.ram);
+        };
+        timeline1.addTimeSeries(line1, { strokeStyle: 'rgba(0, 255, 0, 1)', fillStyle: 'rgba(0, 255, 0, 0.2)', lineWidth: 2 });
+        timeline2.addTimeSeries(line2, { strokeStyle: 'rgba(0, 255, 0, 1)', fillStyle: 'rgba(0, 255, 0, 0.2)', lineWidth: 2 });
+        timeline3.addTimeSeries(line3, { strokeStyle: 'rgba(0, 255, 0, 1)', fillStyle: 'rgba(0, 255, 0, 0.2)', lineWidth: 2 });
+    })
+</script>
