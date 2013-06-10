@@ -2,6 +2,7 @@ import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHe
 import com.typesafe.config.ConfigFactory
 import java.io.File
 import play.api._
+import play.api.mvc.WithFilters
 
 /**
  * The Class Global.
@@ -10,7 +11,7 @@ import play.api._
  * @since 11/2/12 12:23 AM
  *
  */
-object Global extends GlobalSettings {
+object Global extends WithFilters(AccessLog) {
 
   val devConfFilePath = "conf/dev.conf"
   val prodConfFilePath = "prod.conf"
@@ -31,5 +32,6 @@ object Global extends GlobalSettings {
     val devConfig = ConfigFactory.parseFileAnySyntax(new File(path, devConfFilePath))
     config ++ Configuration(devConfig)
   }
+
 
 }

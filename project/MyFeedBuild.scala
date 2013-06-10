@@ -12,6 +12,7 @@ object MyFeedBuild extends Build {
   val appScalaVersion = "2.10.0"
 
   val appDependencies = Seq(
+    "nl.grons" %% "metrics-scala" % "2.2.0",
     "vn.myfeed" %% "model" % "0.1.0-SNAPSHOT",
     "se.radley" %% "play-plugins-salat" % "1.2",
     "jp.t2v" %% "stackable-controller" % "0.2",
@@ -23,9 +24,7 @@ object MyFeedBuild extends Build {
   )
 
   val appResolvers = Seq(
-    "teamon.eu repo" at "http://repo.teamon.eu",
     "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
-    "Spray repo" at "http://repo.spray.io",
     "t2v.jp repo" at "http://www.t2v.jp/maven-repo/",
     "Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.m2/repository",
     Resolver.file("Local Repository", file(Path.userHome.absolutePath + "/.ivy2/local"))(Resolver.ivyStylePatterns)
