@@ -1,8 +1,15 @@
+import actor.MetricActor
+import akka.actor.Props
+import com.codahale.metrics.MetricRegistry
 import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers
 import com.typesafe.config.ConfigFactory
 import java.io.File
 import play.api._
-import play.api.mvc.WithFilters
+import play.api.libs.concurrent.Akka
+import play.api.mvc.{EssentialAction, WithFilters}
+import scala.concurrent.duration._
+import play.api.libs.concurrent.Execution.Implicits._
+import play.api.Play.current
 
 /**
  * The Class Global.
@@ -16,9 +23,14 @@ object Global extends WithFilters(AccessLog) {
   val devConfFilePath = "conf/dev.conf"
   val prodConfFilePath = "prod.conf"
 
+  val metric = new MetricRegistry
+  val requestMeter = metric.meter(MetricRegistry.name(AccessLog.getClass, "requests"))
+
   override def onStart(app: Application) {
     Logger.info("Starting Application")
     RegisterJodaTimeConversionHelpers()
+    val myActor = Akka.system.actorOf(Props(new MetricActor(metric)), name = "metricActor")
+    Akka.system.scheduler.schedule(30.seconds, 30.seconds, myActor, "print")
   }
 
   override def onStop(app: Application) {
@@ -33,5 +45,8 @@ object Global extends WithFilters(AccessLog) {
     config ++ Configuration(devConfig)
   }
 
-
+  override def doFilter(a: EssentialAction) = {
+    requestMeter.mark()
+    super.doFilter(a)
+  }
 }
