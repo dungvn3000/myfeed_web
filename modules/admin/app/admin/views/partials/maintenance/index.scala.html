@@ -1,4 +1,4 @@
-@(pageTitle: String)
+@(pageTitle: String)(implicit request: RequestHeader)
 <legend>
     <h3>@pageTitle</h3>
 </legend>
@@ -48,7 +48,7 @@
         var line2 = new TimeSeries();
         var line3 = new TimeSeries();
         var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
-        var chatSocket = new WS("ws://localhost:9000/admin/maintenance/metric");
+        var chatSocket = new WS("@admin.controllers.routes.Maintenance.metric().webSocketURL()");
         chatSocket.onmessage = function (event) {
             var data = JSON.parse(event.data);
             line1.append(new Date().getTime(), data.request);

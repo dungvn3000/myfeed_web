@@ -29,12 +29,8 @@ import play.api.libs.json.JsString
  */
 object Maintenance extends Controller with Auth with AuthConfigImpl {
 
-  lazy val routes = Map(
-    "index" -> Ok(admin.views.html.partials.maintenance.index(Messages("maintenance.title")))
-  )
-
   def partials(view: String) = authorizedAction(Administrator)(implicit user => implicit request => {
-    routes(view)
+    Ok(admin.views.html.partials.maintenance.index(Messages("maintenance.title")))
   })
 
   /**

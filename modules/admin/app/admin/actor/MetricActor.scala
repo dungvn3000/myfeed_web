@@ -22,7 +22,7 @@ class MetricActor(metric: MetricRegistry) extends Actor {
   val cpuStats = new CPU
 
   def receive = {
-    case "print" => {
+    case Push => {
       val meter = metric.getMeters.get("AccessLog$.requests")
       if (meter != null) {
         val cpu = ((cpuStats.getCpuUsage * 1000).round / 10.0).toInt
@@ -42,5 +42,5 @@ class MetricActor(metric: MetricRegistry) extends Actor {
 }
 
 case object Join
-
+case object Push
 case class Connected(enumerator: Enumerator[JsValue])
