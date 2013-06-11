@@ -5,7 +5,6 @@ import com.codahale.metrics.MetricRegistry
 import play.api.libs.json._
 import play.api.libs.iteratee.{Enumerator, Concurrent}
 import java.lang.management.ManagementFactory
-import com.jezhumble.javasysmon.{CpuTimes, JavaSysMon}
 
 /**
  * The Class MetricActor.
