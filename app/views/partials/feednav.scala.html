@@ -19,7 +19,7 @@
         </li>
         -->
         <li ng-repeat="feed in feeds" ng-class="{active: $state.includes('feeds.detail') && $stateParams.feedId == feed.id}">
-            <a ui-if="feed.unread > 0" ng-click="onFeedClick(feed)" href="#/feed/{{feed.id}}&false">
+            <a ng-click="onFeedClick(feed)" href="#/feed/{{feed.id}}&false">
                 <img ng-src="{{getIconUrl(feed)}}" alt=""/>
                 <strong>{{feed.name}}</strong>
                 <span class="badge badge-success" ui-if="feed.unread > 0">
