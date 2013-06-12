@@ -23,5 +23,12 @@ module.factory "Feed", ($resource) ->
         method: 'add'
       isArray: true
 
-  $resource '/feed/:method/:feedId', {}, actions
+  $resource '/feed/:feedId/:method', {}, actions
 
+
+module.factory "News", ($resource) ->
+  actions =
+    query:
+      method: 'GET'
+
+  $resource '/news/:newsId/:method', {}, actions

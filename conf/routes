@@ -13,10 +13,13 @@ GET     /assets/*file               		controllers.Assets.at(path="/public", file
 
 # Feed
 GET     /feed                               controllers.Feeds.all
-GET     /feed/getNews/:id                   controllers.Feeds.getNews(id: ObjectId, recommend: Boolean ?= false, page: Int ?= 1, limit: Int ?= 10)
+GET     /feed/:id/getNews                   controllers.Feeds.getNews(id: ObjectId, recommend: Boolean ?= false, page: Int ?= 1, limit: Int ?= 10)
 POST    /feed/mark                          controllers.Feeds.mark
 POST    /feed/add                           controllers.Feeds.add
 GET     /feed/partials/:view                controllers.Feeds.partials(view)
+
+# News
+GET     /news/:id                           controllers.News.get(id: ObjectId)
 
 # Authentication
 GET     /user/login                         controllers.Login.login

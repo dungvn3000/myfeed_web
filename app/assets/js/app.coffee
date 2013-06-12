@@ -29,7 +29,7 @@ app.config ($routeProvider, $stateProvider, $urlRouterProvider) ->
     views: {
       'feed.detail@': {
         templateUrl: '/feed/partials/detail'
-        controller: 'FeedController'
+        controller: 'FeedDetailController'
       }
     }
   }

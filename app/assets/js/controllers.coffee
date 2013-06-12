@@ -50,6 +50,9 @@ module.controller 'FeedController', ($scope, $state, Feed) ->
       entry.read = true
       Feed.mark {newsId: entry.id, clicked: clicked}
 
+module.controller 'FeedDetailController', ($scope, $state, News) ->
+  $scope.news = News.query {newsId: $state.params.newsId}
+
 module.controller 'FeedDialogController', ($scope, dialog, Feed) ->
   $scope.save = ->
     error = (result) -> $scope.errors = result.data

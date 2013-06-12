@@ -35,11 +35,16 @@ object UserNewsDao extends SalatDAO[UserNews, ObjectId](mongoCollection("userNew
       .limit(itemDisplay)
       .toList
 
-    userNews.map(item => {
-      val news = NewsDao.findOneById(item.newsId).getOrElse(throw new Exception("Can't find newsId"))
-      NewsDto(news, item.read, item.recommend)
+    userNews.map(userNews => {
+      val news = NewsDao.findOneById(userNews.newsId).getOrElse(throw new Exception("Can't find newsId"))
+      NewsDto(userNews, news)
     })
   }
+
+  def findNewsByUserNewsId(userNewsId: ObjectId): Option[NewsDto] = findOneById(userNewsId).map(userNews => {
+    val news = NewsDao.findOneById(userNews.newsId).getOrElse(throw new Exception("Can't find newsId"))
+    NewsDto(userNews, news)
+  })
 
   def countUnreadByFeed(feedId: ObjectId, userId: ObjectId) = count(
     MongoDBObject(

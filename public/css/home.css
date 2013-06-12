@@ -64,11 +64,12 @@
 .feed-image {
     float: left;
     width: 65px;
+    padding-right: 5px;
 }
 
 .feed-content {
     float: left;
-    width: 250px;
+    width: 280px;
 }
 
 .feed-description {

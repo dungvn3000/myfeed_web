@@ -1,7 +1,8 @@
 <legend>
-    Title
+    {{news.title}}
 </legend>
-<p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi harum minus quas vero voluptate. Blanditiis cum
-    excepturi, id, illum minus nesciunt nulla obcaecati officia omnis optio quos reiciendis repellat vitae.
-</p>
+<div ng-bind-html-unsafe="news.description"></div>
+<div class="clearfix"></div>
+<br>
+<p>{{news.text}}</p>
+<a href="{{news.url}}" target="_blank">More</a>

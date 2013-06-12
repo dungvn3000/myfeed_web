@@ -1,6 +1,6 @@
 package dto
 
-import vn.myfeed.model.News
+import vn.myfeed.model.{UserNews, News}
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
@@ -16,6 +16,7 @@ case class NewsDto(
                     feedId: String,
                     title: String,
                     description: String,
+                    text: String,
                     url: String,
                     read: Boolean = false,
                     recommend: Boolean = false
@@ -23,14 +24,15 @@ case class NewsDto(
 
 object NewsDto {
 
-  def apply(news: News, read: Boolean, recommend: Boolean) = new NewsDto(
-    id = news.id,
+  def apply(userNews: UserNews, news: News) = new NewsDto(
+    id = userNews.id,
     feedId = news.feedId.toString,
     title = news.title,
     description = news.description.getOrElse(""),
+    text = news.text.getOrElse(""),
     url = news.url,
-    read = read,
-    recommend = recommend
+    read = userNews.read,
+    recommend = userNews.recommend
   )
 
   implicit val jsonWrite = (
@@ -38,6 +40,7 @@ object NewsDto {
       (__ \ "feedId").write[String] ~
       (__ \ "title").write[String] ~
       (__ \ "description").write[String] ~
+      (__ \ "text").write[String] ~
       (__ \ "url").write[String] ~
       (__ \ "read").write[Boolean] ~
       (__ \ "recommend").write[Boolean]
