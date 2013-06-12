@@ -17,10 +17,8 @@ module.factory "Feed", ($resource) ->
       params:
         method: 'mark'
 
-    add:
+    create:
       method: 'POST'
-      params:
-        method: 'add'
       isArray: true
 
   $resource '/feed/:feedId/:method', {}, actions

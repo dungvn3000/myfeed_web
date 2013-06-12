@@ -57,7 +57,7 @@ module.controller 'FeedDialogController', ($scope, dialog, Feed) ->
   $scope.save = ->
     error = (result) -> $scope.errors = result.data
     success = -> location.reload()
-    Feed.add $scope.feed, success, error
+    Feed.create $scope.feed, success, error
 
   $scope.close = -> dialog.close()
 

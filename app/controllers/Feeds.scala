@@ -1,7 +1,6 @@
 package controllers
 
 import _root_.validation.Constraint
-import play.api.mvc.Controller
 import jp.t2v.lab.play2.auth.Auth
 import auth.AuthConfigImpl
 import dao.{UserNewsDao, UserFeedDao, FeedDao}
@@ -22,7 +21,7 @@ import model.NormalUser
  * @since 5/12/13 2:38 AM
  *
  */
-object Feeds extends Controller with Auth with AuthConfigImpl {
+object Feeds extends RestFullController[ObjectId] with Auth with AuthConfigImpl {
 
   lazy val routes = Map(
     "index" -> Ok(views.html.partials.feed.index()),
@@ -79,7 +78,12 @@ object Feeds extends Controller with Auth with AuthConfigImpl {
     )
   )
 
-  def add = authorizedAction(NormalUser)(implicit user => implicit request => {
+  /**
+   * POST /entity
+   * submit fields for creating a new record
+   * @return
+   */
+  override def create = authorizedAction(NormalUser)(implicit user => implicit request => {
     feedForm.bindFromRequest.fold(
       fromError => {
         val error = fromError.errors.map(FormErrorDto(_))

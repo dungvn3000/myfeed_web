@@ -11,6 +11,9 @@ app.config ($routeProvider, $stateProvider, $urlRouterProvider) ->
       'feed.list@': {
         templateUrl: '/feed/partials/index'
       }
+      'feed.detail@': {
+        template: 'Empty'
+      }
     }
   }
 
