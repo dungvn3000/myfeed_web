@@ -25,10 +25,11 @@ import model.NormalUser
 object Feeds extends Controller with Auth with AuthConfigImpl {
 
   lazy val routes = Map(
-    "feeds" -> Ok(views.html.partials.feeds()),
-    "list" -> Ok(views.html.partials.feedList()),
-    "detail" -> Ok(views.html.partials.feedDetail()),
-    "add" -> Ok(views.html.partials.feedAdd())
+    "index" -> Ok(views.html.partials.feed.index()),
+    "nav" -> Ok(views.html.partials.feed.nav()),
+    "list" -> Ok(views.html.partials.feed.list()),
+    "detail" -> Ok(views.html.partials.feed.detail()),
+    "add" -> Ok(views.html.partials.feed.add())
   )
 
   def partials(view: String) = authorizedAction(NormalUser)(implicit user => implicit request => {

@@ -37,7 +37,7 @@ module.controller 'FeedController', ($scope, $state, Feed) ->
         $scope.page += 1
         $scope.news.push newItem for newItem in data
     $scope.busy = true
-    Feed.getNews {feedId: $state.params.feedId, page: $scope.page, recommend: $state.params.recommend}, callback
+    Feed.getNews {feedId: $state.params.feedId, page: $scope.page}, callback
 
   $scope.mark = (entry, clicked = false) ->
     if clicked

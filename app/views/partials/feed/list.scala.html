@@ -6,10 +6,10 @@
 
     <div class="feed-item" ng-class="{unread: !entry.read}" ng-repeat="entry in news" ng-click="mark(entry, true)" on-scroll-middle="mark(entry)">
         <div class="feed-image">
-            <img class="email-avatar" alt="YUI's avatar" src="http://api.twitter.com/1/users/profile_image?screen_name=yuilibrary&amp;size=bigger" height="65" width="65">
+            <img class="email-avatar" alt="YUI's avatar" src="http://placehold.it/65x65" height="65" width="65">
         </div>
         <div class="feed-content">
-            <a href="{{entry.url}}" target="_blank">
+            <a href="#/feed/{{currentFeed.id}}/newsId">
                 <strong>{{entry.title}}</strong>
             </a>
             <p class="feed-description">
