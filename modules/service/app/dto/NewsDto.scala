@@ -29,7 +29,7 @@ object NewsDto {
     id = userNews.id,
     feedId = news.feedId.toString,
     title = news.title,
-    description = news.description.substring(0, 100),
+    description = if (news.description.length > 100) news.description.substring(0, 100) else news.description,
     featureImage = news.featureImage.getOrElse(""),
     html = news.html.getOrElse(""),
     url = news.url,
