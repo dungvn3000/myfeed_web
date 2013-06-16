@@ -12,6 +12,7 @@ object MyFeedBuild extends Build {
   val appScalaVersion = "2.10.0"
 
   val appDependencies = Seq(
+    "com.github" %% "sonic" % "0.0.1",
     "com.codahale.metrics" % "metrics-core" % "3.0.0-RC1",
     "vn.myfeed" %% "model" % "0.1.0-SNAPSHOT",
     "se.radley" %% "play-plugins-salat" % "1.2",

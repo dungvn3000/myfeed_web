@@ -16,7 +16,8 @@ case class NewsDto(
                     feedId: String,
                     title: String,
                     description: String,
-                    text: String,
+                    featureImage: String,
+                    html: String,
                     url: String,
                     read: Boolean = false,
                     recommend: Boolean = false
@@ -28,8 +29,9 @@ object NewsDto {
     id = userNews.id,
     feedId = news.feedId.toString,
     title = news.title,
-    description = news.description.getOrElse(""),
-    text = news.text.getOrElse(""),
+    description = news.description.substring(0, 100),
+    featureImage = news.featureImage.getOrElse(""),
+    html = news.html.getOrElse(""),
     url = news.url,
     read = userNews.read,
     recommend = userNews.recommend
@@ -40,7 +42,8 @@ object NewsDto {
       (__ \ "feedId").write[String] ~
       (__ \ "title").write[String] ~
       (__ \ "description").write[String] ~
-      (__ \ "text").write[String] ~
+      (__ \ "featureImage").write[String] ~
+      (__ \ "html").write[String] ~
       (__ \ "url").write[String] ~
       (__ \ "read").write[Boolean] ~
       (__ \ "recommend").write[Boolean]

@@ -5,15 +5,12 @@
     </div>
 
     <div class="feed-item" ng-class="{unread: !entry.read}" ng-repeat="entry in news" ng-click="mark(entry, true)" on-scroll-middle="mark(entry)">
-        <div class="feed-image">
-            <img class="email-avatar" alt="YUI's avatar" src="http://placehold.it/65x65" height="65" width="65">
-        </div>
         <div class="feed-content">
-            <a href="#/feed/{{currentFeed.id}}/{{entry.id}}">
+            <a class="title" href="#/feed/{{currentFeed.id}}/{{entry.id}}">
                 <strong>{{entry.title}}</strong>
             </a>
             <p class="feed-description">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut...
+                {{entry.description}}
             </p>
         </div>
         <div class="clearfix"></div>

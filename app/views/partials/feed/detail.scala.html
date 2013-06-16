@@ -1,10 +1,9 @@
 <legend>
-    {{news.title}}
+    <a href="{{news.url}}" target="_blank" class="title">
+        <strong>{{news.title}}</strong>
+    </a>
 </legend>
-<div ng-bind-html-unsafe="news.description"></div>
-<div class="clearfix"></div>
-<br>
-<p>{{news.text}}</p>
+<div ng-bind-html-unsafe="news.html"></div>
 <a href="{{news.url}}" target="_blank">More</a>
 <script type="text/javascript">
     $('body').getNiceScroll().resize();
