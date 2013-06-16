@@ -4,7 +4,9 @@
         @Messages("label.empty")
     </div>
 
-    <div class="feed-item" ng-class="{unread: !entry.read}" ng-repeat="entry in news" ng-click="mark(entry, true)" on-scroll-middle="mark(entry)">
+    <div class="feed-item"
+         ng-class="{unread: !entry.read, active: $state.includes('feed.list.detail') && $stateParams.newsId == entry.id}"
+         ng-repeat="entry in news" ng-click="mark(entry, true)" on-scroll-middle="mark(entry)">
         <div class="feed-content">
             <a class="title" href="#/feed/{{currentFeed.id}}/{{entry.id}}">
                 <strong>{{entry.title}}</strong>
