@@ -25,17 +25,6 @@
             <ul class="nav toolbar">
                 <li>
                     <button class="btn" ng-click="openFeedAddDialog()"><i class="icon-plus-sign"></i></button>
-                    <div class="btn-group">
-                        <a class="btn" ng-class="{active: $stateParams.recommend == 'false'}"
-                           href="#/feed/{{currentFeed.id}}&false">
-                            @Messages("label.unread")
-                        </a>
-                        <a class="btn" ng-class="{active: $stateParams.recommend == 'true'}"
-                           href="#/feed/{{currentFeed.id}}&true">
-                            @Messages("label.recommend")
-                        </a>
-                    </div>
-                    <button class="btn"><i class="icon-ok"></i> @Messages("label.maskAsRead")</button>
                 </li>
 
                 <li style="padding-left: 5px;">
