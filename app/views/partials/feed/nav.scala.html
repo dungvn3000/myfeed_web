@@ -22,7 +22,7 @@
             <a ng-click="onFeedClick(feed)" href="#/feed/{{feed.id}}">
                 <img ng-src="{{getIconUrl(feed)}}" alt=""/>
                 <strong>{{feed.name}}</strong>
-                <span class="badge" ui-if="feed.unread > 0">
+                <span class="badge badge-success" ui-if="feed.unread > 0">
                     {{feed.unread}}
                 </span>
             </a>

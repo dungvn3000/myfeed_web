@@ -1,7 +1,8 @@
 html, body {
     height: 100%;
 }
-.feed-nav , .feed-list {
+
+.feed-nav, .feed-list {
     top: 40px;
     bottom: 0;
     left: 0;
@@ -15,7 +16,7 @@ html, body {
     width: 230px;
     padding-left: 5px;
     padding-bottom: 30px;
-    background: #eaeaea;
+    background: #F7F7F7;
 }
 
 .feed-list {
@@ -23,15 +24,10 @@ html, body {
     left: 230px;
     padding-left: 5px;
     border-right: 1px solid #ddd;
-    background: #eaeaea;
 }
 
 .feed-list .active {
-    background:#515960;
-}
-
-.feed-list .active .title {
-    color: #ffffff;;
+    background: #eee;
 }
 
 .feed-nav a {
@@ -39,11 +35,17 @@ html, body {
     text-decoration: none;
 }
 
-.feed-nav li.active {
+.feed-nav li.active a {
+    background: #c6c6c6;
+}
+
+.feed-nav li.active a:hover {
+    background: #c6c6c6;
 }
 
 .feed-nav li.active a strong {
-    color: #30a67c;
+    color: #333;
+    text-shadow: none;
 }
 
 .feed-nav li strong {
@@ -62,14 +64,18 @@ html, body {
     line-height: 12px !important;
     font-weight: normal !important;
     margin: 0 0 0 4px;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     text-shadow: none;
-    color: #666;
+    color: #ffffff;
     float: right;
 }
 
+.feed-nav .badge-success {
+    background: #30a67c;
+}
+
 .feed-item {
-    padding: 10px;
+    padding: 10px 10px 15px;
     border-bottom: 1px solid #ddd;
 }
 
@@ -81,7 +87,7 @@ html, body {
 
 .feed-content {
     float: left;
-    width: 330px;
+    width: 320px;
 }
 
 .feed-content .title {
@@ -111,6 +117,6 @@ html, body {
 }
 
 .nicescroll-rails {
-    background: #cfcfcf;
+    background: #ffffff;
     border-right: 1px solid gray;
 }

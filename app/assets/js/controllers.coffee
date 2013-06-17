@@ -3,7 +3,6 @@ module = angular.module('myFeed.controllers', [])
 module.controller 'HomeController', ($scope, $state, $dialog, Feed) ->
   $scope.feeds = Feed.all (data) ->
     #Set current feed in case user reload feed detail page.
-    $('.feed-nav').niceScroll({autohidemode: false,  cursoropacitymax: 0.5, cursorborder: "0"})
     if $state.params.feedId
       for feed in data
         $scope.currentFeed = feed if feed.id is $state.params.feedId
