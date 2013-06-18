@@ -1,7 +1,9 @@
-<legend>
-    <a href="{{news.url}}" target="_blank" class="title">
-        <strong>{{news.title}}</strong>
-    </a>
-</legend>
+<div class="title">
+    <h2>
+        <a href="{{news.url}}" target="_blank">
+            {{news.title}}
+        </a>
+    </h2>
+</div>
 <div ng-bind-html-unsafe="news.html"></div>
 <a href="{{news.url}}" target="_blank">More</a>
