@@ -16,7 +16,6 @@ case class NewsDto(
                     feedId: String,
                     title: String,
                     description: String,
-                    featureImage: String,
                     html: String,
                     url: String,
                     read: Boolean = false,
@@ -30,7 +29,6 @@ object NewsDto {
     feedId = news.feedId.toString,
     title = news.title,
     description = if (news.description.length > 100) news.description.substring(0, 100) else news.description,
-    featureImage = news.featureImage.getOrElse(""),
     html = news.html.getOrElse(""),
     url = news.url,
     read = userNews.read,
@@ -42,7 +40,6 @@ object NewsDto {
       (__ \ "feedId").write[String] ~
       (__ \ "title").write[String] ~
       (__ \ "description").write[String] ~
-      (__ \ "featureImage").write[String] ~
       (__ \ "html").write[String] ~
       (__ \ "url").write[String] ~
       (__ \ "read").write[Boolean] ~
